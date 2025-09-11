@@ -1,12 +1,171 @@
 <!doctype html>
-<meta charset="utf-8">
-<title>Antara</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<main style="max-width:680px;margin:40px auto;font:16px/1.6 system-ui,sans-serif">
-  <h1>Antara</h1>
-  <p>Welcome. Useful links:</p>
-  <ul>
-    <li><a href="/privacy/">Privacy Policy</a></li>
-    <li><a href="/terms/">Terms of Use</a></li>
-  </ul>
-</main>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Antara — Breathe, Reflect, Restore</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="description" content="Antara is your calm, science-informed wellness companion. Breathe, reflect, restore." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1:#0B0F1F; --bg2:#0F0B23; --bg3:#15102C;
+      --glow1: 255, 120, 255; /* fuchsia tint */
+      --glow2: 140, 180, 255; /* indigo/sky tint */
+      --white: 255,255,255;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:rgba(255,255,255,.92);
+      background: radial-gradient(1200px 800px at 10% -10%, rgba(255,120,255,.08), transparent 60%),
+                  radial-gradient(1000px 700px at 90% 110%, rgba(140,180,255,.08), transparent 60%),
+                  linear-gradient(135deg, var(--bg1), var(--bg2) 45%, var(--bg3));
+      overflow: hidden;
+    }
+    .wrap{
+      position:relative; min-height:100%;
+      display:grid; place-items:center; padding:32px;
+    }
+    /* Particles canvas */
+    #p{position:fixed; inset:0; z-index:0}
+    /* Card */
+    .card{
+      position:relative; z-index:1;
+      width:min(960px, 92vw);
+      border-radius:28px;
+      padding:32px 28px;
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.12);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 20px 60px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.04);
+    }
+    .logo{
+      display:flex; align-items:center; gap:12px; margin-bottom:8px;
+    }
+    .logo-dot{
+      width:32px; height:32px; border-radius:999px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.9), rgba(255,255,255,.1)),
+                  radial-gradient(circle at 70% 70%, rgba(255,120,255,.8), rgba(140,180,255,.6));
+      box-shadow: 0 0 24px rgba(255,120,255,.6);
+    }
+    h1{ font-size: clamp(28px, 4.5vw, 56px); line-height:1.05; margin:8px 0 10px; }
+    .sub{ font-size: clamp(15px, 2.2vw, 20px); color: rgba(255,255,255,.8); margin: 0 0 22px;}
+    .chips{ display:flex; flex-wrap:wrap; gap:10px; margin: 6px 0 24px; }
+    .chip{
+      font-size:12px; letter-spacing:.2px; padding:8px 12px; border-radius:999px;
+      background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14);
+    }
+    .btns{ display:flex; flex-wrap:wrap; gap:12px; margin-top: 10px; }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:12px 16px; border-radius:14px; font-weight:600; text-decoration:none;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.08);
+      color:white;
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(255,120,255,.22), rgba(140,180,255,.22));
+      box-shadow: 0 8px 24px rgba(255,120,255,.25);
+    }
+    .grid{ display:grid; grid-template-columns:1fr; gap:14px; margin-top:18px }
+    @media (min-width:720px){ .grid{ grid-template-columns:repeat(3,1fr);} }
+    .tile{
+      padding:16px; border-radius:18px; background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.1);
+    }
+    footer{
+      position:fixed; inset-inline:0; bottom:8px; z-index:1;
+      text-align:center; font-size:12px; color: rgba(255,255,255,.6);
+    }
+    a{ color:#cde0ff }
+    .sr{ position:absolute; left:-9999px; }
+  </style>
+</head>
+<body>
+  <canvas id="p" aria-hidden="true"></canvas>
+
+  <div class="wrap">
+    <main class="card" role="main" aria-labelledby="title">
+      <div class="logo" aria-hidden="true">
+        <div class="logo-dot"></div>
+        <div style="font-weight:800; font-size:20px; letter-spacing:.2px">Antara</div>
+      </div>
+
+      <h1 id="title">Breathe, Reflect, Restore</h1>
+      <p class="sub">A calm, science-informed wellness companion for better brain–body balance.</p>
+
+      <div class="chips" aria-hidden="true">
+        <div class="chip">Breathwork</div>
+        <div class="chip">Journaling</div>
+        <div class="chip">Bio-signals</div>
+        <div class="chip">Privacy-first</div>
+      </div>
+
+      <div class="btns">
+        <a class="btn primary" href="/privacy/">Privacy Policy</a>
+        <a class="btn" href="/terms/">Terms of Use</a>
+      </div>
+
+      <div class="grid" aria-hidden="true">
+        <div class="tile">Adaptive breathwork (wellness, not medical)</div>
+        <div class="tile">Voice/text journaling</div>
+        <div class="tile">Thoughtful, private by design</div>
+      </div>
+    </main>
+  </div>
+
+  <footer>
+    © 2025 Antara • <a href="mailto:contact@antara.icu">contact@antara.icu</a>
+  </footer>
+
+  <script>
+    // Lightweight particles — no libraries.
+    const c = document.getElementById('p');
+    const ctx = c.getContext('2d');
+    let W=0,H=0, dpr = Math.max(1, window.devicePixelRatio || 1);
+    const P = []; // particles
+    const N = 80; // count
+    function resize(){
+      W = c.width = Math.floor(innerWidth * dpr);
+      H = c.height = Math.floor(innerHeight * dpr);
+      c.style.width = innerWidth + 'px';
+      c.style.height = innerHeight + 'px';
+    }
+    function rnd(min,max){ return Math.random()*(max-min)+min }
+    function init(){
+      P.length = 0;
+      for (let i=0;i<N;i++){
+        P.push({
+          x: rnd(0,W), y: rnd(0,H),
+          vx: rnd(-.08,.08)*dpr, vy: rnd(-.08,.08)*dpr,
+          r: rnd(1.0, 2.3)*dpr,
+          hue: Math.random()<.5 ? 'rgba(255,120,255,' : 'rgba(140,180,255,'
+        });
+      }
+    }
+    function step(){
+      ctx.clearRect(0,0,W,H);
+      for (const p of P){
+        p.x += p.vx; p.y += p.vy;
+        if (p.x<0||p.x>W) p.vx*=-1;
+        if (p.y<0||p.y>H) p.vy*=-1;
+        // glow
+        const g = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*6);
+        g.addColorStop(0, p.hue+'0.22)');
+        g.addColorStop(1, p.hue+'0)');
+        ctx.fillStyle = g;
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.r*6,0,Math.PI*2); ctx.fill();
+
+        ctx.fillStyle = p.hue+'0.85)';
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+      }
+      requestAnimationFrame(step);
+    }
+    window.addEventListener('resize', ()=>{ resize(); });
+    resize(); init(); step();
+  </script>
+</body>
+</html>
