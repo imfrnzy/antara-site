@@ -1,42 +1,101 @@
 <!doctype html>
-<meta charset="utf-8">
-<title>Antara — Terms of Use</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<main style="max-width:760px;margin:40px auto;font:16px/1.6 system-ui,sans-serif;padding:0 16px">
-  <h1>Terms of Use</h1>
-  <p><strong>Effective:</strong> October 2025 • <strong>Last updated:</strong> October 2025</p>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Antara — Terms of Use</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg1:#0B0F1F;--bg2:#0F0B23;--bg3:#15102C;}
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:rgba(255,255,255,.92);
+      background:radial-gradient(1200px 800px at 10% -10%,rgba(255,120,255,.08),transparent 60%),
+                 radial-gradient(1000px 700px at 90% 110%,rgba(140,180,255,.08),transparent 60%),
+                 linear-gradient(135deg,var(--bg1),var(--bg2) 45%,var(--bg3));}
+    #p{position:fixed;inset:0;z-index:0}
+    .wrap{position:relative;min-height:100%;padding:32px;display:grid;place-items:start}
+    .card{position:relative;z-index:1;width:min(1040px,96vw);border-radius:28px;padding:28px 24px;margin:0 auto 48px;
+      background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(14px);
+      box-shadow:0 20px 60px rgba(0,0,0,.35),inset 0 0 0 1px rgba(255,255,255,.04);}
+    header h1{font-size:clamp(28px,4.2vw,54px);margin:6px 0 8px}
+    .sub{font-size:clamp(14px,2vw,18px);color:rgba(255,255,255,.8);margin:0 0 18px}
+    h2{margin:26px 0 12px;font-size:clamp(18px,2.5vw,26px)}
+    p,li{color:rgba(255,255,255,.86);line-height:1.7}
+    ul{padding-left:18px}
+    a{color:#cde0ff}
+    nav.top{display:flex;justify-content:space-between;margin-bottom:16px}
+    .btn{padding:8px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.18);
+      background:rgba(255,255,255,.08);color:white;text-decoration:none;font-weight:600}
+    footer{text-align:center;color:rgba(255,255,255,.6);margin-top:24px}
+  </style>
+</head>
+<body>
+  <canvas id="p" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <main class="card">
+      <nav class="top">
+        <a class="btn" href="/">← Back</a>
+        <a class="btn" href="/privacy/">Privacy</a>
+      </nav>
+      <header>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+          <img src="/avatar.png" alt="Antara logo" style="width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.3)">
+          <span style="font-weight:800;font-size:22px">Antara</span>
+        </div>
+        <h1>Terms of Use</h1>
+        <p class="sub">Effective: 10 October 2025 • Last updated: 10 October 2025</p>
+      </header>
 
-  <h2>Welcome</h2>
-  <p>These Terms govern your use of the Antara app (“App”). By using the App you agree to these Terms.</p>
+      <section class="callout" style="padding:14px 16px;border-radius:16px;margin:14px 0;background: linear-gradient(135deg, rgba(255,120,255,.12), rgba(140,180,255,.12)); border:1px solid rgba(255,255,255,.14);">
+        <p><strong>Age restriction:</strong> You must be <strong>18 years or older</strong> to use Antara.</p>
+      </section>
 
-  <h2>Eligibility</h2>
-  <p>You must be at least <strong>18 years old</strong> to use the App.</p>
+      <h2>Welcome</h2>
+      <p>These Terms govern your use of the Antara app (“App”). By using the App you agree to these Terms.</p>
 
-  <h2>Purpose</h2>
-  <p>Antara provides reflective journaling, emotion insights, guided practices, and wellbeing tracking. It is not medical advice and does not diagnose, treat, or prevent medical conditions.</p>
+      <h2>Purpose</h2>
+      <p>Antara provides reflective journaling, emotion insights, guided practices and wellbeing tracking. It is not medical advice and does not diagnose, treat or prevent medical conditions.</p>
 
-  <h2>Your Responsibilities</h2>
-  <ul>
-    <li>Use the App lawfully and for personal, non-commercial purposes.</li>
-    <li>Do not reverse-engineer, disrupt, or infringe others’ rights.</li>
-    <li>Respect privacy; do not upload illegal or harmful content.</li>
-  </ul>
+      <h2>Your Responsibilities</h2>
+      <ul>
+        <li>Use the App lawfully and for personal, non-commercial purposes.</li>
+        <li>Do not reverse-engineer, disrupt or infringe others’ rights.</li>
+        <li>Respect privacy; do not upload illegal or harmful content.</li>
+      </ul>
 
-  <h2>Subscriptions & Billing</h2>
-  <p>Some features may require a paid subscription via the relevant app store. Subscriptions auto-renew unless cancelled per store policy.</p>
+      <h2>Subscriptions & Billing</h2>
+      <p>Some features may require a paid subscription via the relevant app store. Subscriptions auto-renew unless cancelled per store policy.</p>
 
-  <h2>Permissions & Data</h2>
-  <p>Some features require permissions (e.g., camera, microphone, health/sensors). See our <a href="/privacy/">Privacy Policy</a>.</p>
+      <h2>Permissions & Data</h2>
+      <p>Some features require permissions (e.g., camera, microphone, health/sensors). See our <a href="/privacy/">Privacy Policy</a> for data collection, use, retention and deletion.</p>
 
-  <h2>Intellectual Property</h2>
-  <p>All content and technology in Antara are owned by Antara Innovations. You receive a limited licence to use the App.</p>
+      <h2>Intellectual Property</h2>
+      <p>All content and technology in Antara are owned by Antara Innovations. You receive a limited licence to use the App.</p>
 
-  <h2>Liability</h2>
-  <p>To the maximum extent permitted by law we are not liable for damages arising from use of the App.</p>
+      <h2>Liability</h2>
+      <p>To the maximum extent permitted by law we are not liable for damages arising from use of the App.</p>
 
-  <h2>Contact</h2>
-  <p>Email: <a href="mailto:contact@antara.icu">contact@antara.icu</a></p>
+      <h2>Contact</h2>
+      <p>Email: <a href="mailto:contact@antara.icu">contact@antara.icu</a></p>
 
-  <h2>Changes</h2>
-  <p>We may update these Terms; material changes will be communicated in the App.</p>
-</main>
+      <h2>Changes</h2>
+      <p>We may update these Terms; material changes will be communicated in the App.</p>
+
+      <footer>© 2025 Antara</footer>
+    </main>
+  </div>
+  <script>
+    const c=document.getElementById('p'),ctx=c.getContext('2d');
+    let W=0,H=0,dpr=Math.max(1,devicePixelRatio||1);const P=[],N=80;
+    function R(a,b){return Math.random()*(b-a)+a}
+    function resize(){W=c.width=innerWidth*dpr;H=c.height=innerHeight*dpr;c.style.width=innerWidth+'px';c.style.height=innerHeight+'px';}
+    function init(){P.length=0;for(let i=0;i<N;i++)P.push({x:R(0,W),y:R(0,H),vx:R(-.08,.08)*dpr,vy:R(-.08,.08)*dpr,r:R(1,2.2)*dpr,h:Math.random()<.5});}
+    function tick(){ctx.clearRect(0,0,W,H);for(const p of P){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*6);g.addColorStop(0,(p.h?'rgba(255,120,255,':'rgba(140,180,255,')+'0.22)');g.addColorStop(1,(p.h?'rgba(255,120,255,':'rgba(140,180,255,')+'0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(p.x,p.y,p.r*6,0,Math.PI*2);ctx.fill();ctx.fillStyle=(p.h?'rgba(255,120,255,':'rgba(140,180,255,')+'0.85)';ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();}requestAnimationFrame(tick);}
+    addEventListener('resize',()=>{resize()});resize();init();tick();
+  </script>
+</body>
+</html>
