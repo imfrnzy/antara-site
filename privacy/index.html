@@ -1,45 +1,81 @@
 <!doctype html>
-<meta charset="utf-8">
-<title>Antara — Privacy Policy</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<main style="max-width:760px;margin:40px auto;font:16px/1.6 system-ui,sans-serif;padding:0 16px">
-  <h1>Privacy Policy</h1>
-  <p><strong>Effective:</strong> October 2025 • <strong>Last updated:</strong> October 2025</p>
-
-  <p>Antara (“we”, “us”) is a wellness and self-reflection app. We design Antara to be privacy-first and transparent.</p>
-
-  <h2>Age Restriction</h2>
-  <p><strong>Antara is intended for adults aged 18+.</strong> If you are under 18, do not use the app.</p>
-
-  <h2>Information We Collect</h2>
-  <ul>
-    <li><strong>Provided by you:</strong> account email, profile details, journals/reflections, support messages.</li>
-    <li><strong>With permission:</strong> camera/microphone for optional features; health & motion data if you connect supported sources.</li>
-    <li><strong>Automatically:</strong> usage analytics, device/app diagnostics, crash reports.</li>
-  </ul>
-
-  <h2>How We Use Information</h2>
-  <ul>
-    <li>Provide wellness insights and personalisation.</li>
-    <li>Operate, secure, and improve the app.</li>
-    <li>Send essential communications and support responses.</li>
-  </ul>
-
-  <h2>Sharing</h2>
-  <p>We share data only with service providers that operate our service (e.g., hosting, analytics, payments) under agreements limiting their use to providing services to us. We may disclose information if required by law or to protect safety and rights.</p>
-
-  <h2>Data Storage & Security</h2>
-  <p>Data is stored with reputable vendors (e.g., Supabase) with encryption in transit and at rest. No system is 100% secure; please protect your device and account.</p>
-
-  <h2>Your Rights</h2>
-  <p>You can access, edit, or delete your data in the app (Profile → Settings → Delete Account). Depending on your region (e.g., GDPR/CCPA), you may have additional rights to access, correct, delete, or port your data.</p>
-
-  <h2>Children’s Privacy</h2>
-  <p>We do not knowingly collect personal information from those under 18. If you believe a minor has provided information, contact us and we will delete it.</p>
-
-  <h2>Contact</h2>
-  <p>Email: <a href="mailto:contact@antara.icu">contact@antara.icu</a></p>
-
-  <h2>Changes</h2>
-  <p>We may update this policy from time to time. Material changes will be announced in the app or by email if provided.</p>
-</main>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Antara — Privacy Policy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg1:#0B0F1F;--bg2:#0F0B23;--bg3:#15102C;}
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:rgba(255,255,255,.92);
+      background:radial-gradient(1200px 800px at 10% -10%,rgba(255,120,255,.08),transparent 60%),
+                 radial-gradient(1000px 700px at 90% 110%,rgba(140,180,255,.08),transparent 60%),
+                 linear-gradient(135deg,var(--bg1),var(--bg2) 45%,var(--bg3));
+    }
+    #p{position:fixed;inset:0;z-index:0}
+    .wrap{position:relative;min-height:100%;padding:32px;display:grid;place-items:start}
+    .card{position:relative;z-index:1;width:min(1040px,96vw);border-radius:28px;padding:28px 24px;margin:0 auto 48px;
+      background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(14px);
+      box-shadow:0 20px 60px rgba(0,0,0,.35),inset 0 0 0 1px rgba(255,255,255,.04);}
+    header h1{font-size:clamp(28px,4.2vw,54px);margin:6px 0 8px}
+    .sub{font-size:clamp(14px,2vw,18px);color:rgba(255,255,255,.8);margin:0 0 18px}
+    h2{margin:26px 0 12px;font-size:clamp(18px,2.5vw,26px)}
+    p,li{color:rgba(255,255,255,.86);line-height:1.7}
+    ul{padding-left:18px}
+    a{color:#cde0ff}
+    .callout{padding:14px 16px;border-radius:16px;margin:14px 0;
+      background:linear-gradient(135deg,rgba(255,120,255,.12),rgba(140,180,255,.12));
+      border:1px solid rgba(255,255,255,.14);}
+    nav.top{display:flex;justify-content:space-between;margin-bottom:16px}
+    .btn{padding:8px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.18);
+      background:rgba(255,255,255,.08);color:white;text-decoration:none;font-weight:600}
+    footer{text-align:center;color:rgba(255,255,255,.6);margin-top:24px}
+  </style>
+</head>
+<body>
+  <canvas id="p" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <main class="card">
+      <nav class="top">
+        <a class="btn" href="/">← Back</a>
+        <a class="btn" href="/terms/">Terms</a>
+      </nav>
+      <header>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+          <img src="/avatar.png" alt="Antara logo" style="width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.3)">
+          <span style="font-weight:800;font-size:22px">Antara</span>
+        </div>
+        <h1>Privacy Policy</h1>
+        <p class="sub">Effective: October 2025 • Last updated: October 2025</p>
+      </header>
+      <section class="callout"><p><strong>Age restriction:</strong> Antara is for adults <strong>18+</strong>.</p></section>
+      <h2>What we are</h2><p>Antara is a wellness and self-reflection companion. We do <strong>not</strong> provide medical advice.</p>
+      <h2>Information we collect</h2>
+      <ul><li>Provided by you: account, journals, support.</li><li>With permission: camera, microphone, health data.</li><li>Automatically: usage analytics, diagnostics.</li></ul>
+      <h2>How we use</h2><ul><li>Personalisation</li><li>Operate and improve app</li><li>Support</li></ul>
+      <h2>Sharing</h2><p>Only with providers under strict agreements. May disclose if law requires.</p>
+      <h2>Storage & Security</h2><p>Stored with encryption (Supabase). Protect your device and account.</p>
+      <h2>Your Rights</h2><p>Manage data in-app. GDPR/CCPA rights apply depending on region.</p>
+      <h2>Children</h2><p>Not for under 18. Contact us if data was collected in error.</p>
+      <h2>Contact</h2><p><a href="mailto:contact@antara.icu">contact@antara.icu</a></p>
+      <h2>Changes</h2><p>We may update; major changes notified in-app or by email.</p>
+      <footer>© 2025 Antara</footer>
+    </main>
+  </div>
+  <script>
+    const c=document.getElementById('p'),ctx=c.getContext('2d');
+    let W=0,H=0,dpr=Math.max(1,devicePixelRatio||1);const P=[],N=80;
+    function R(a,b){return Math.random()*(b-a)+a}
+    function resize(){W=c.width=innerWidth*dpr;H=c.height=innerHeight*dpr;c.style.width=innerWidth+'px';c.style.height=innerHeight+'px';}
+    function init(){P.length=0;for(let i=0;i<N;i++)P.push({x:R(0,W),y:R(0,H),vx:R(-.08,.08)*dpr,vy:R(-.08,.08)*dpr,r:R(1,2.2)*dpr,h:Math.random()<.5});}
+    function tick(){ctx.clearRect(0,0,W,H);for(const p of P){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*6);g.addColorStop(0,(p.h?'rgba(255,120,255,':'rgba(140,180,255,')+'0.22)');g.addColorStop(1,(p.h?'rgba(255,120,255,':'rgba(140,180,255,')+'0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(p.x,p.y,p.r*6,0,Math.PI*2);ctx.fill();ctx.fillStyle=(p.h?'rgba(255,120,255,':'rgba(140,180,255,')+'0.85)';ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();}requestAnimationFrame(tick);}
+    addEventListener('resize',()=>{resize()});resize();init();tick();
+  </script>
+</body>
+</html>
