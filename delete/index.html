@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Antara — Account & Data Deletion</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg1:#0B0F1F;--bg2:#0F0B23;--bg3:#15102C;--muted:rgba(255,255,255,.72);--line:rgba(255,255,255,.12);}
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:rgba(255,255,255,.92);
+      background:
+        radial-gradient(1200px 800px at 10% -10%,rgba(255,120,255,.08),transparent 60%),
+        radial-gradient(1000px 700px at 90% 110%,rgba(140,180,255,.08),transparent 60%),
+        linear-gradient(135deg,var(--bg1),var(--bg2) 45%,var(--bg3));
+    }
+    #p{position:fixed;inset:0;z-index:0}
+    .wrap{position:relative;min-height:100%;padding:32px;display:grid;place-items:start}
+    .card{
+      position:relative;z-index:1;width:min(1040px,96vw);
+      border-radius:28px;padding:28px 24px;margin:0 auto 48px;
+      background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
+      border:1px solid var(--line);
+      box-shadow:0 10px 40px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,.05);
+      backdrop-filter: blur(8px);
+    }
+    header{display:flex;align-items:center;gap:14px;margin:6px 4px 18px}
+    header img{width:28px;height:28px;border-radius:8px}
+    header h1{font-size:18px;letter-spacing:.3px;margin:0;font-weight:800}
+    .headline{font-size:28px;line-height:1.2;margin:8px 4px 16px;font-weight:800}
+    .lead{color:var(--muted);margin:0 4px 18px;max-width:70ch}
+    h2{font-size:18px;margin:20px 4px 10px;font-weight:800}
+    p,li{color:var(--muted)}
+    .section{border-top:1px solid var(--line);padding-top:16px;margin-top:16px}
+    .grid{display:grid;grid-template-columns:1fr;gap:14px}
+    @media (min-width: 880px){ .grid{grid-template-columns:1fr 1fr;} }
+    .box{border:1px solid var(--line);border-radius:18px;padding:16px;background:rgba(255,255,255,.02)}
+    .kbd{display:inline-block;padding:.25em .5em;border-radius:8px;border:1px solid var(--line);background:rgba(255,255,255,.04)}
+    form .row{display:grid;gap:10px;margin:10px 0}
+    input,textarea{
+      width:100%;padding:12px 12px;border-radius:12px;
+      border:1px solid var(--line);background:rgba(255,255,255,.04);
+      color:inherit;font:inherit
+    }
+    textarea{min-height:120px;resize:vertical}
+    label{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+    .btn{
+      appearance:none;border:none;cursor:pointer;
+      padding:12px 16px;border-radius:12px;font-weight:700;
+      background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.06));
+      border:1px solid var(--line);
+    }
+    .btn.primary{background:linear-gradient(180deg,rgba(140,180,255,.25),rgba(140,180,255,.12));}
+    .note{font-size:12px;color:var(--muted)}
+    footer{opacity:.8;margin-top:12px;font-size:12px}
+    a{color:#9cc3ff}
+  </style>
+</head>
+<body>
+  <canvas id="p"></canvas>
+  <div class="wrap">
+    <main class="card" role="main">
+      <header>
+        <img src="/avatar.png" alt="Antara">
+        <h1>Antara</h1>
+      </header>
+
+      <div class="headline">Account & Data Deletion</div>
+      <p class="lead">You can delete your Antara account and personal data at any time. This page explains the two supported ways to do it — <strong>in‑app</strong> or by <strong>email request</strong> — so you can still act even if you’ve uninstalled the app.</p>
+
+      <section class="section grid" aria-labelledby="inapp">
+        <div class="box">
+          <h2 id="inapp">Option A — Delete in the app (recommended)</h2>
+          <ol>
+            <li>Open <span class="kbd">Antara</span> on your phone.</li>
+            <li>Go to <span class="kbd">Menu ▸ Settings ▸ Account</span>.</li>
+            <li>Tap <span class="kbd">Delete account & data</span> and confirm.</li>
+          </ol>
+          <p class="note">This immediately schedules your account for deletion. Most data is removed promptly; certain encrypted backups may persist for a short period to support secure recovery and legal compliance.</p>
+        </div>
+
+        <div class="box">
+          <h2 id="email">Option B — Request by email (if you can’t access the app)</h2>
+          <p>Fill in the form below. Your mail app will open with a pre‑filled request to <a href="mailto:contact@antara.icu">contact@antara.icu</a>.</p>
+
+          <form id="delForm" aria-label="Email deletion request form">
+            <div class="row">
+              <label for="email">Your Antara account email</label>
+              <input id="email" name="email" type="email" required placeholder="you@example.com" autocomplete="email">
+            </div>
+            <div class="row">
+              <label for="reason">Reason (optional)</label>
+              <textarea id="reason" name="reason" placeholder="Tell us anything you’d like us to know (optional)"></textarea>
+            </div>
+            <div class="actions">
+              <button class="btn primary" type="submit">Create email request</button>
+              <button class="btn" type="reset">Clear</button>
+            </div>
+            <p class="note">We may ask you to verify ownership of the account email. If you no longer have access to that email, state this and include any transaction IDs (Google Play) to help us verify your request.</p>
+          </form>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>What happens next</h2>
+        <ul>
+          <li><strong>Confirmation:</strong> We’ll acknowledge your request by email.</li>
+          <li><strong>Deletion:</strong> Once verified, we delete your account and associated personal data. Purchase records may be retained where required by law.</li>
+          <li><strong>Backups:</strong> Encrypted backups are purged on their regular cycle.</li>
+        </ul>
+        <p class="note">For details, see our <a href="/privacy/">Privacy Policy</a> and <a href="/terms/">Terms of Use</a>.</p>
+      </section>
+
+      <footer>© Antara. All rights reserved.</footer>
+    </main>
+  </div>
+
+  <script>
+    // Background particles (match site vibe)
+    const c=document.getElementById('p'),ctx=c.getContext('2d');
+    let W=0,H=0,dpr=Math.max(1,devicePixelRatio||1);const P=[],N=80;
+    function R(a,b){return Math.random()*(b-a)+a}
+    function resize(){W=c.width=innerWidth*dpr;H=c.height=innerHeight*dpr;c.style.width=innerWidth+'px';c.style.height=innerHeight+'px'}
+    function init(){P.length=0;for(let i=0;i<N;i++)P.push({x:R(0,W),y:R(0,H),vx:R(-.06,.06)*dpr,vy:R(-.06,.06)*dpr,r:R(1,2.2)*dpr,h:Math.random()<.5});}
+    function tick(){
+      ctx.clearRect(0,0,W,H);
+      for(const p of P){
+        p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;
+        const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*6);
+        g.addColorStop(0,(p.h?'rgba(255,120,255,':'rgba(140,180,255,')+'0.18)');
+        g.addColorStop(1,(p.h?'rgba(255,120,255,':'rgba(140,180,255,')+'0)');
+        ctx.fillStyle=g;ctx.beginPath();ctx.arc(p.x,p.y,p.r*6,0,Math.PI*2);ctx.fill();
+        ctx.fillStyle=(p.h?'rgba(255,120,255,':'rgba(140,180,255,')+'0.7)';ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();
+      }
+      requestAnimationFrame(tick);
+    }
+    addEventListener('resize',resize);resize();init();tick();
+
+    // Build a pre-filled mailto from the form
+    const f=document.getElementById('delForm');
+    f.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const email=(document.getElementById('email').value||'').trim();
+      const reason=(document.getElementById('reason').value||'').trim();
+      if(!email){alert('Please enter your Antara account email');return;}
+      const subject=encodeURIComponent('Antara account & data deletion request');
+      const bodyLines=[
+        'Please delete my Antara account and personal data.',
+        '',
+        'Account email: ' + email,
+        (reason ? '\nReason: ' + reason : ''),
+        '',
+        'I understand this will permanently remove my account and personal data, subject to any legal retention requirements.'
+      ];
+      const body=encodeURIComponent(bodyLines.join('\n'));
+      window.location.href = `mailto:contact@antara.icu?subject=${subject}&body=${body}`;
+    });
+  </script>
+</body>
+</html>
