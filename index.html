@@ -58,10 +58,10 @@
           </div>
         </div>
 
-        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
-          <a class="btn primary" href="download/">Get the app</a>
-          <a class="btn" href="product/">Explore the product</a>
-          <a class="btn ghost" href="screens/">See the screens</a>
+        <div class="heroActions" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px">
+          <a class="btn primary" href="https://apps.apple.com/us/app/antara-wellness/id6755032385" target="_blank" rel="noopener">App Store</a>
+          <a class="btn" href="https://play.google.com/store/apps/details?id=com.antara.health" target="_blank" rel="noopener">Google Play</a>
+          <a class="btn ghost" href="product/">Explore the product</a>
         </div>
 
         <div class="kpis" style="margin-top:16px">
@@ -72,12 +72,26 @@
       </div>
 
       <div class="mediaWallDeviceWrap">
-        <div class="device mediaWallDevice">
-          <div class="screen">
-            <img class="mediaWallImg" data-mediawall-img src="assets/antara_universe_iphone_1242x2688.png" alt="Antara app preview" />
+        <div class="mediaWallStack" aria-label="Antara app previews">
+          <div class="device mediaWallPhone layer layer1">
+            <div class="screen">
+              <img class="mediaWallImg" data-mediawall-img="0" src="assets/antara_universe_iphone_1242x2688.png" alt="Antara preview" />
+            </div>
           </div>
-          <div style="margin-top:10px"><small>Live media wall, mirroring the in-app feel.</small></div>
+          <div class="device mediaWallPhone layer layer2" aria-hidden="true">
+            <div class="screen">
+              <img class="mediaWallImg" data-mediawall-img="1" src="assets/antara_screen_clean_3_1242x2688.png" alt="" />
+            </div>
+          </div>
+          <div class="device mediaWallPhone layer layer3" aria-hidden="true">
+            <div class="screen">
+              <img class="mediaWallImg" data-mediawall-img="2" src="assets/antara_screen_clean_8_1242x2688.png" alt="" />
+            </div>
+          </div>
+
+          <div class="mediaWallGlow" aria-hidden="true"></div>
         </div>
+        <div class="mediaWallHint"><small>Swipe your attention, not your nervous system.</small></div>
       </div>
     </div>
     <div class="mediaWallBaseline" aria-hidden="true"></div>
@@ -140,9 +154,12 @@
 
     <div class="card col-12">
       <div class="pad">
-        <div class="h2">Want the full screen tour?</div>
-        <p>We’ve laid out the core flows and screens in a way that mirrors the app structure, so it’s easy to see what you’ll actually use.</p>
-        <a class="btn primary" href="screens/">View screens</a>
+        <div class="h2">Download Antara</div>
+        <p>Available on iOS and Android. Same calm, same science, same privacy-first intent.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+          <a class="btn primary" href="https://apps.apple.com/us/app/antara-wellness/id6755032385" target="_blank" rel="noopener">App Store</a>
+          <a class="btn" href="https://play.google.com/store/apps/details?id=com.antara.health" target="_blank" rel="noopener">Google Play</a>
+        </div>
       </div>
     </div>
   </div>

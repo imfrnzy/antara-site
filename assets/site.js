@@ -12,6 +12,87 @@
   });
 
   // -----------------------------
+  // Mobile nav (auto-injected)
+  // -----------------------------
+  try{
+    var nav = document.querySelector('.nav');
+    if(nav && !nav.querySelector('.navToggle')){
+      var navlinks = nav.querySelector('.navlinks');
+      var cta = nav.querySelector('.cta');
+      var brand = nav.querySelector('.brand');
+
+      var toggle = document.createElement('button');
+      toggle.className = 'navToggle';
+      toggle.type = 'button';
+      toggle.setAttribute('aria-label','Menu');
+      toggle.innerHTML = "<svg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M5 7h14M5 12h14M5 17h14' stroke='currentColor' stroke-width='2' stroke-linecap='round'/></svg>";
+
+      // Insert before CTA if possible
+      if(cta){ nav.insertBefore(toggle, cta); }
+      else { nav.appendChild(toggle); }
+
+      var overlay = document.createElement('div');
+      overlay.className = 'navOverlay';
+      overlay.setAttribute('data-open','false');
+
+      var drawer = document.createElement('div');
+      drawer.className = 'navDrawer';
+      drawer.setAttribute('data-open','false');
+
+      var closeBtn = document.createElement('button');
+      closeBtn.className = 'btn ghost';
+      closeBtn.type = 'button';
+      closeBtn.textContent = 'Close';
+
+      var head = document.createElement('div');
+      head.className = 'drawerHead';
+      var brandClone = brand ? brand.cloneNode(true) : document.createElement('div');
+      head.appendChild(brandClone);
+      head.appendChild(closeBtn);
+
+      var linksWrap = document.createElement('div');
+      linksWrap.className = 'drawerLinks';
+      if(navlinks){
+        Array.prototype.slice.call(navlinks.querySelectorAll('a')).forEach(function(a){
+          linksWrap.appendChild(a.cloneNode(true));
+        });
+      }
+
+      var ctas = document.createElement('div');
+      ctas.className = 'drawerCtas';
+      if(cta){
+        Array.prototype.slice.call(cta.querySelectorAll('a')).forEach(function(a){
+          ctas.appendChild(a.cloneNode(true));
+        });
+      }
+
+      drawer.appendChild(head);
+      drawer.appendChild(linksWrap);
+      drawer.appendChild(ctas);
+      document.body.appendChild(overlay);
+      document.body.appendChild(drawer);
+
+      function setOpen(isOpen){
+        overlay.setAttribute('data-open', isOpen ? 'true' : 'false');
+        drawer.setAttribute('data-open', isOpen ? 'true' : 'false');
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+        if(isOpen){ closeBtn.focus(); }
+      }
+
+      toggle.addEventListener('click', function(){ setOpen(true); });
+      closeBtn.addEventListener('click', function(){ setOpen(false); });
+      overlay.addEventListener('click', function(){ setOpen(false); });
+      drawer.addEventListener('click', function(e){
+        var t = e.target;
+        if(t && t.tagName === 'A'){ setOpen(false); }
+      });
+      window.addEventListener('keydown', function(e){
+        if(e.key === 'Escape'){ setOpen(false); }
+      });
+    }
+  } catch(e){}
+
+  // -----------------------------
   // Spotlight follows pointer (very subtle)
   // -----------------------------
   var root = document.documentElement;
