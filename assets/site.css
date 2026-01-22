@@ -178,6 +178,13 @@ img{max-width:100%;display:block}
   .navToggle{display:inline-flex}
 }
 
+/* If the browser shows a "desktop" viewport on a phone (e.g. iOS "Request Desktop Site"),
+   still force the mobile nav. Touch devices shouldn't be punished for a viewport lie. */
+@media (hover: none) and (pointer: coarse){
+  .navlinks, .cta{display:none !important}
+  .navToggle{display:inline-flex !important}
+}
+
 .brand{display:flex;align-items:center;gap:12px}
 .logo{
   width:36px;height:36px;border-radius:12px;
