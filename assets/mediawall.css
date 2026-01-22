@@ -191,10 +191,22 @@
 }
 
 @media (max-width: 520px){
-  .mediaWallStack{height: 520px}
-  .mediaWallPhone.layer1{left: 50%; transform: translateX(-50%); width: 320px}
-  .mediaWallPhone.layer2{left: 4px; width: 280px}
-  .mediaWallPhone.layer3{left: 52%; transform: translateX(-50%); top: 150px; width: 260px}
+  .mediaWallStack{height: 520px;}
+  /* On mobile, the float animations were overriding the centring transform.
+     Use mobile-specific keyframes that keep translateX(-50%) baked in. */
+  .mediaWallPhone.layer1{left: 50%; transform: translateX(-50%); width: 320px; animation-name: wallFloat1Mobile;}
+  .mediaWallPhone.layer2{left: 4px; width: 280px;}
+  .mediaWallPhone.layer3{left: 50%; transform: translateX(-50%); top: 150px; width: 260px; animation-name: wallFloat3Mobile;}
+}
+
+@keyframes wallFloat1Mobile{
+  0%,100%{ transform: translateX(-50%) translateY(0) rotateZ(-0.2deg); }
+  50%{ transform: translateX(calc(-50% + 6px)) translateY(-10px) rotateZ(0.2deg); }
+}
+
+@keyframes wallFloat3Mobile{
+  0%,100%{ transform: translateX(-50%) translateY(0) rotateZ(-0.1deg); }
+  50%{ transform: translateX(calc(-50% - 10px)) translateY(-8px) rotateZ(0.2deg); }
 }
 
 @keyframes wallFloat1{
