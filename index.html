@@ -6,143 +6,140 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="dark" />
   <meta name="description" content="A calm, science-informed wellness companion." />
-
-  <!-- Performance -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-
-  <!-- Verification & sharing niceties -->
-  <link rel="canonical" href="https://www.antara.icu/">
-  <link rel="icon" href="/favicon.ico">
-  <meta property="og:title" content="Antara — Reflect. Elevate. Restore">
-  <meta property="og:description" content="A calm, science-informed wellness companion.">
-  <meta property="og:url" content="https://www.antara.icu/">
-  <meta property="og:type" content="website">
-
-  <!-- Organization schema (non-sensitive, matches Companies House) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Antara",
-    "legalName": "ANTARA INNOVATIONS LTD",
-    "url": "https://www.antara.icu/",
-    "email": "contact@antara.icu",
-    "logo": "https://www.antara.icu/avatar.png",
-    "identifier": {
-      "@type": "PropertyValue",
-      "propertyID": "CompaniesHouseNumber",
-      "value": "16641151"
-    },
-    "foundingLocation": {
-      "@type": "AdministrativeArea",
-      "name": "England and Wales"
-    }
-  }
-  </script>
-
-  <style>
-    :root{--bg1:#0B0F1F;--bg2:#0F0B23;--bg3:#15102C;}
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      color:rgba(255,255,255,.92);
-      background:radial-gradient(1200px 800px at 10% -10%,rgba(255,120,255,.08),transparent 60%),
-                 radial-gradient(1000px 700px at 90% 110%,rgba(140,180,255,.08),transparent 60%),
-                 linear-gradient(135deg,var(--bg1),var(--bg2) 45%,var(--bg3));
-      overflow:hidden;
-    }
-    #p{position:fixed;inset:0;z-index:0}
-    .wrap{position:relative;min-height:100%;display:grid;place-items:center;padding:32px}
-    .card{
-      position:relative;z-index:1;width:min(960px,92vw);
-      border-radius:28px;padding:32px 28px;
-      background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.12);
-      backdrop-filter:blur(14px);
-      box-shadow:0 20px 60px rgba(0,0,0,.35),inset 0 0 0 1px rgba(255,255,255,.04);
-    }
-    .logo{display:flex;align-items:center;gap:12px;margin-bottom:8px}
-    h1{font-size:clamp(28px,4.5vw,56px);line-height:1.05;margin:8px 0 10px}
-    .sub{font-size:clamp(15px,2.2vw,20px);color:rgba(255,255,255,.8);margin:0 0 22px}
-    .chips{display:flex;flex-wrap:wrap;gap:10px;margin:6px 0 24px}
-    .chip{font-size:12px;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14)}
-    .btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px}
-    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:14px;font-weight:600;text-decoration:none;color:white;
-         border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08)}
-    .btn.primary{background:linear-gradient(135deg,rgba(255,120,255,.22),rgba(140,180,255,.22));box-shadow:0 8px 24px rgba(255,120,255,.25)}
-    .grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:18px}
-    @media(min-width:720px){.grid{grid-template-columns:repeat(3,1fr)}}
-    .tile{padding:16px;border-radius:18px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)}
-    footer{position:fixed;inset-inline:0;bottom:8px;z-index:1;text-align:center;font-size:12px;color:rgba(255,255,255,.6)}
-    a{color:#cde0ff}
-  </style>
+  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="assets/site.css" />
 </head>
 <body>
-  <!-- Particles -->
-  <canvas id="p" aria-hidden="true"></canvas>
-
-  <div class="wrap">
-    <main class="card" role="main" aria-labelledby="title">
-      <div class="logo">
-        <img src="/avatar.png" alt="Antara logo" style="width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.3)">
+  <div class="topbar">
+    <div class="nav">
+      <a class="brand" href="">
+        <span class="logo"><img src="assets/antra-icon-512.png" alt="Antara" /></span>
+        <b>Antara</b>
+      </a>
+      <div class="navlinks">
+        <a data-nav href="">Home</a>
+        <a data-nav href="product/">Product</a>
+        <a data-nav href="screens/">Screens</a>
+        <a data-nav href="pricing/">Pricing</a>
+        <a data-nav href="support/">Support</a>
+        <a data-nav href="privacy/">Privacy</a>
       </div>
-
-      <h1 id="title">Antara</h1>
-      <p class="sub">A neuro-adaptive wellness ecosystem where science, psychology, and technology come together to help you reconnect with your true self.</p>
-
-      <div class="chips" aria-hidden="true">
-        <div class="chip">Inner Mirror</div>
-        <div class="chip">Holistic Elevation</div>
-        <div class="chip">Bio-signals Tracking</div>
-        <div class="chip">Mind-Body Sync</div>
-        <div class="chip">Science-Based Insights</div>
+      <div class="cta">
+        <a class="btn ghost" href="download/">Get the app</a>
+        <a class="btn primary" href="pricing/">Start free</a>
       </div>
-
-      <div class="btns">
-        <a class="btn primary" href="/privacy/">Privacy Policy</a>
-        <a class="btn" href="/terms/">Terms of Use</a>
-        <a class="btn" href="/delete/">Account &amp; Data Deletion</a>
-      </div>
-
-      <!-- Discreet legal line for verification; no sensitive data -->
-      <p style="margin-top:16px;color:rgba(255,255,255,.78);font-size:14px">
-        ANTARA INNOVATIONS LTD • Company No. 16641151 • Registered in England &amp; Wales
-      </p>
-
-      <div class="grid" aria-hidden="true">
-        <div class="tile">Neuroadaptive Design</div>
-        <div class="tile">Affective Computing</div>
-        <div class="tile">Critical thinking first</div>
-      </div>
-    </main>
+    </div>
   </div>
 
-  <footer>
-    © 2025 ANTARA INNOVATIONS LTD • Company No. 16641151 • Registered in England &amp; Wales •
-    <a href="mailto:contact@antara.icu">contact@antara.icu</a>
-  </footer>
+  <div class="wrap">
+    
+  <div class="hero">
+    <div>
+      <span class="badge">Science-led calm, built for real nervous systems</span>
+      <div class="h1">Antara</div>
+      <p class="sub">
+        A body-aware, agentic wellness companion that helps you settle, reflect, and build steadier days.
+        Less “productivity”. More nervous system literacy.
+      </p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a class="btn primary" href="download/">Get the app</a>
+        <a class="btn" href="product/">Explore the product</a>
+        <a class="btn ghost" href="screens/">See the screens</a>
+      </div>
 
-  <script>
-    // Lightweight particles — same as Privacy/Terms
-    const c = document.getElementById('p'), ctx = c.getContext('2d');
-    let W=0,H=0,dpr=Math.max(1, devicePixelRatio||1); const P=[]; const N=80;
-    const R=(a,b)=>Math.random()*(b-a)+a;
-    function resize(){ W=c.width=innerWidth*dpr; H=c.height=innerHeight*dpr; c.style.width=innerWidth+'px'; c.style.height=innerHeight+'px'; }
-    function init(){ P.length=0; for(let i=0;i<N;i++) P.push({x:R(0,W),y:R(0,H),vx:R(-.08,.08)*dpr,vy:R(-.08,.08)*dpr,r:R(1,2.3)*dpr,h:Math.random()<.5}); }
-    function tick(){
-      ctx.clearRect(0,0,W,H);
-      for(const p of P){
-        p.x+=p.vx; p.y+=p.vy; if(p.x<0||p.x>W) p.vx*=-1; if(p.y<0||p.y>H) p.vy*=-1;
-        const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*6);
-        g.addColorStop(0,(p.h?'rgba(255,120,255,':'rgba(140,180,255,')+'0.22)'); g.addColorStop(1,(p.h?'rgba(255,120,255,':'rgba(140,180,255,')+'0)');
-        ctx.fillStyle=g; ctx.beginPath(); ctx.arc(p.x,p.y,p.r*6,0,Math.PI*2); ctx.fill();
-        ctx.fillStyle=(p.h?'rgba(255,120,255,':'rgba(140,180,255,')+'0.85)'; ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
-      }
-      requestAnimationFrame(tick);
-    }
-    addEventListener('resize', resize); resize(); init(); tick();
-  </script>
+      <div class="kpis">
+        <div class="kpi"><b>Reflect</b><small>Journaling + agentic chat, with meaning not noise.</small></div>
+        <div class="kpi"><b>Connect</b><small>Breathwork that feels guided, not preachy.</small></div>
+        <div class="kpi"><b>Posture</b><small>Body signals, posture cues, gentle corrections.</small></div>
+      </div>
+    </div>
+
+    <div class="device">
+      <div class="screen">
+        <img src="assets/antara_reflect.png" alt="Antara app screen preview" />
+      </div>
+      <div style="margin-top:10px"><small>Preview: Reflect module (illustrative).</small></div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card col-12">
+      <div class="pad">
+        <div class="h2">What Antara does (in plain English)</div>
+        <p>
+          Antara is built around a simple loop: stabilise state, make meaning, integrate and learn.
+          You can come in through the body (breathwork, posture), through language (journalling), or through conversation
+          (agentic prompts that help you stay honest without getting dramatic).
+        </p>
+        <p>
+          We keep the interface calm on purpose. Your brain already has enough tabs open.
+        </p>
+      </div>
+    </div>
+
+    <div class="card col-6">
+      <div class="pad">
+        <div class="h2">Modules</div>
+        <div class="module">
+          <img src="assets/antara_reflect.png" alt="Reflect" />
+          <div><b>Reflect</b><p>Journalling, guided prompts, and AI-backed reflection.</p></div>
+        </div>
+        <div class="hr"></div>
+        <div class="module">
+          <img src="assets/yoga.png" alt="Connect" />
+          <div><b>Connect</b><p>Breathwork journeys with gentle pacing and voice guidance.</p></div>
+        </div>
+        <div class="hr"></div>
+        <div class="module">
+          <img src="assets/body.png" alt="Posture" />
+          <div><b>Posture</b><p>Body cues that nudge you back into alignment.</p></div>
+        </div>
+        <div style="margin-top:14px">
+          <a class="btn" href="product/">Go deeper</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card col-6">
+      <div class="pad">
+        <div class="h2">Privacy, by default</div>
+        <p>
+          Antara is designed to be privacy-first. We avoid collecting what we do not need, we keep analytics opt-in,
+          and we aim for the least invasive path that still works.
+        </p>
+        <p>
+          If something needs a camera or microphone, the product should explain why, and still be useful if you say “no”.
+        </p>
+        <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+          <a class="btn" href="privacy/">Privacy policy</a>
+          <a class="btn ghost" href="terms/">Terms</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card col-12">
+      <div class="pad">
+        <div class="h2">Want the full screen tour?</div>
+        <p>We’ve laid out the core flows and screens in a way that mirrors the app structure, so it’s easy to understand what you’ll actually use.</p>
+        <a class="btn primary" href="screens/">View screens</a>
+      </div>
+    </div>
+  </div>
+
+    <div class="footer">
+      <div class="row">
+        <small>© 2026 Antara. Calm science, real life.</small>
+        <div style="display:flex;gap:14px;flex-wrap:wrap">
+          <a href="terms/">Terms</a>
+          <a href="privacy/">Privacy</a>
+          <a href="delete/">Account deletion</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/site.js"></script>
 </body>
 </html>
