@@ -75,6 +75,7 @@
   var INTERVAL = 6200;
   var lastSwitch = 0;
   var paused = false;
+  var lastUser = 0;
 
   function setActiveChip(key){
     chipEls.forEach(function(el){
@@ -114,12 +115,45 @@
     lastSwitch = performance.now();
   }
 
+  // Touch swipe (mobile): left/right to change slides
+  (function(){
+    var startX = 0, startY = 0, startT = 0;
+    var tracking = false;
+    root.addEventListener('touchstart', function(e){
+      if(!e.touches || e.touches.length !== 1) return;
+      var t = e.touches[0];
+      startX = t.clientX; startY = t.clientY; startT = performance.now();
+      tracking = true;
+    }, {passive:true});
+    root.addEventListener('touchmove', function(e){
+      if(!tracking || !e.touches || e.touches.length !== 1) return;
+      var t = e.touches[0];
+      var dx = t.clientX - startX;
+      var dy = t.clientY - startY;
+      // Cancel if it's mostly vertical scrolling
+      if(Math.abs(dy) > Math.abs(dx) * 1.25){ tracking = false; }
+    }, {passive:true});
+    root.addEventListener('touchend', function(e){
+      if(!tracking) return;
+      tracking = false;
+      var now = performance.now();
+      var dt = now - startT;
+      var endX = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientX : startX;
+      var dx = endX - startX;
+      if(dt < 600 && Math.abs(dx) > 48){
+        lastUser = performance.now();
+        goTo(i + (dx < 0 ? 1 : -1));
+      }
+    }, {passive:true});
+  })();
+
   // Chips are clickable: jump to the relevant slide
   chipEls.forEach(function(el){
     el.setAttribute('role','button');
     el.setAttribute('tabindex','0');
     var key = el.getAttribute('data-mediawall-chip') || '';
     function handler(){
+      lastUser = performance.now();
       var idx = slides.findIndex(function(s){ return s.active === key; });
       if(idx < 0) idx = 0;
       goTo(idx);
@@ -139,7 +173,9 @@
   // Auto-cycle using rAF (more reliable than setInterval on mobile)
   function loop(now){
     if(!lastSwitch) lastSwitch = now;
-    if(!paused && (now - lastSwitch) > INTERVAL){
+    // After a manual interaction, pause auto-cycling briefly so it doesn't feel "fighty"
+    var recentlyTouched = lastUser && (now - lastUser) < 12000;
+    if(!paused && !recentlyTouched && (now - lastSwitch) > INTERVAL){
       goTo(i + 1);
     }
     window.requestAnimationFrame(loop);

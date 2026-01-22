@@ -64,6 +64,26 @@
   max-width: 62ch;
 }
 
+/* Mobile polish: less crowding, cleaner type, chips behave */
+@media (max-width: 520px){
+  .mediaWall{padding: 18px; gap: 14px;}
+  .mediaWallHeadline{font-size: clamp(30px, 8.4vw, 40px); line-height: 1.06;}
+  .mediaWallBody{font-size: 15px;}
+  .mediaWallChips{display:grid !important;grid-template-columns: 1fr 1fr 1fr; gap: 8px !important;}
+  .mediaWallChip{min-width: 0 !important; padding: 10px 10px !important; border-radius: 16px !important;}
+  .mediaWallChip b{font-size: 12px;}
+  .mediaWallChip small{font-size: 11px;}
+  .mediaWallHint{margin-top: 8px; text-align:center}
+}
+
+/* Very small devices: prioritise one hero phone for clarity */
+@media (max-width: 420px){
+  .mediaWallPhone.layer2,
+  .mediaWallPhone.layer3{display:none;}
+  .mediaWallStack{height: 500px;}
+  .mediaWallPhone.layer1{left: 50%; transform: translateX(-50%); width: min(320px, 92vw);}
+}
+
 /* Text transitions per slide */
 .mwTick .mediaWallEyebrow,
 .mwTick .mediaWallHeadline,

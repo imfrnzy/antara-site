@@ -144,6 +144,35 @@ img{max-width:100%;display:block}
 .navDrawer .drawerLinks a:active{transform: scale(.99)}
 .navDrawer .drawerCtas{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
 
+/* Mobile ergonomics: smaller, scrollable drawer and cleaner hierarchy */
+@media (max-width: 520px){
+  .nav{padding: 12px 14px;}
+  .brand{gap:10px;}
+  .brand b{font-size:16px;}
+  .logo{width:32px;height:32px;border-radius:10px;}
+
+  .navDrawer{
+    top: calc(10px + env(safe-area-inset-top));
+    left: 10px;
+    right: 10px;
+    padding: 12px;
+    border-radius: 20px;
+    max-height: calc(100vh - 20px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .navDrawer .drawerHead{margin-bottom:8px;}
+  .navDrawer .drawerLinks{grid-template-columns: 1fr; gap:8px;}
+  .navDrawer .drawerLinks a{
+    padding: 12px 12px;
+    font-size: 14px;
+    border-radius: 14px;
+  }
+  .navDrawer .drawerCtas{flex-direction: column; gap: 8px;}
+  .navDrawer .drawerCtas a{width: 100%; justify-content: center;}
+  .navDrawer .drawerCtas .btn{padding: 12px 14px;}
+}
+
 @media (max-width: 860px){
   .navlinks, .cta{display:none}
   .navToggle{display:inline-flex}
@@ -213,6 +242,7 @@ img{max-width:100%;display:block}
   background: rgba(255,255,255,.04);
   color:rgba(255,255,255,.80);
   font-size:13px;
+  margin-bottom: 14px;
 }
 
 /* Typography */
@@ -243,6 +273,12 @@ img{max-width:100%;display:block}
     radial-gradient(140% 180% at 10% 10%, rgba(106,225,224,.10), rgba(255,255,255,.04) 60%, rgba(255,255,255,.02) 100%);
 }
 .btn.store b{font-weight:700}
+
+@media (max-width: 520px){
+  .heroActions{gap:8px;}
+  .heroActions .btn{flex: 1 1 48%;}
+  .heroActions .btn.ghost{flex: 1 1 100%;}
+}
 .h2{font-size:22px;margin:0 0 12px}
 .h3{font-size:16px;margin:0 0 6px}
 
@@ -287,6 +323,11 @@ img{max-width:100%;display:block}
 }
 .kpi b{display:block;font-size:16px}
 .kpi small{display:block;margin-top:4px}
+
+@media (max-width: 520px){
+  .kpis{gap:8px;}
+  .kpi{min-width: 0; flex: 1 1 100%;}
+}
 
 /* Device frame */
 .device{
