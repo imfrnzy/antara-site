@@ -185,6 +185,11 @@ img{max-width:100%;display:block}
   .navToggle{display:inline-flex !important}
 }
 
+/* JS-enforced touch mode: fixes iOS "Request Desktop Site" where media queries lie.
+   If the device can touch, we always show the hamburger + drawer nav. */
+.isTouch .navlinks, .isTouch .cta{display:none !important}
+.isTouch .navToggle{display:inline-flex !important}
+
 .brand{display:flex;align-items:center;gap:12px}
 .logo{
   width:36px;height:36px;border-radius:12px;
@@ -308,6 +313,17 @@ img{max-width:100%;display:block}
   box-shadow: var(--shadow);
   backdrop-filter: blur(10px);
   transform: translateZ(0);
+}
+
+/* Mobile: increase card opacity so the hero media wall doesn't "bleed" through
+   (glass is nice, but phones behind cards looks messy). */
+@media (max-width: 720px){
+  .card{
+    background:
+      radial-gradient(160% 120% at 20% 0%, rgba(255,255,255,.14), rgba(255,255,255,.08) 45%, rgba(255,255,255,.06) 100%),
+      linear-gradient(180deg, rgba(18,18,28,.66), rgba(10,10,18,.62));
+    border-color: rgba(255,255,255,.12);
+  }
 }
 .card .pad{padding:24px}
 

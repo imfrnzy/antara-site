@@ -1,5 +1,16 @@
 (function(){
   // -----------------------------
+  // Touch / mobile detection (robust against iOS "Request Desktop Site")
+  // We use this to force mobile nav when the viewport lies.
+  // -----------------------------
+  try{
+    var isTouch = ('ontouchstart' in window) || (navigator && (navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0));
+    if(isTouch){
+      document.documentElement.classList.add('isTouch');
+    }
+  } catch(e){}
+
+  // -----------------------------
   // Active nav
   // -----------------------------
   var here = (location.pathname || "/").replace(/\/+$/, "");
