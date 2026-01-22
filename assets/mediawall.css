@@ -1,0 +1,109 @@
+/* Antara Media Wall (vanilla)
+   Calm motion, low cognitive load.
+*/
+
+.mediaWallSection{
+  margin-top: 18px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 22px;
+  overflow: hidden;
+  background: radial-gradient(900px 480px at 30% 30%, rgba(255,180,80,0.14), transparent 62%),
+              linear-gradient(180deg, rgba(12,10,26,0.92), rgba(8,8,16,0.96));
+}
+
+.mediaWall{
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 18px;
+  padding: 18px;
+  align-items: center;
+}
+
+@media(max-width: 900px){
+  .mediaWall{ grid-template-columns: 1fr; }
+}
+
+.mediaWallText{
+  padding: 6px 4px;
+}
+
+.mediaWallEyebrow{
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.62);
+}
+
+.mediaWallHeadline{
+  margin-top: 10px;
+  font-size: 34px;
+  line-height: 1.12;
+  font-weight: 800;
+  color: rgba(255,255,255,0.96);
+}
+
+.mediaWallBody{
+  margin-top: 12px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.74);
+  max-width: 60ch;
+}
+
+.mediaWallChips{
+  margin-top: 14px;
+  display:flex;
+  gap:10px;
+  flex-wrap: wrap;
+}
+
+.mediaWallChip{
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+  padding: 10px 12px;
+  border-radius: 14px;
+  min-width: 140px;
+}
+
+.mediaWallChip b{ display:block; font-size: 13px; color: rgba(255,255,255,0.92); }
+.mediaWallChip small{ display:block; margin-top: 4px; font-size: 12px; color: rgba(255,255,255,0.62); }
+
+.mediaWallChip[data-active="true"]{
+  border-color: rgba(255,180,80,0.38);
+  background: rgba(255,180,80,0.08);
+}
+
+.mediaWallDeviceWrap{
+  display:flex;
+  justify-content: center;
+}
+
+.mediaWallDevice{
+  width: min(360px, 100%);
+}
+
+.mediaWallDevice .screen{
+  position: relative;
+  overflow: hidden;
+}
+
+.mediaWallImg{
+  width:100%;
+  display:block;
+  transform: translateZ(0);
+}
+
+.mediaWallImgFade{
+  animation: mediaWallFade 420ms ease both;
+}
+
+@keyframes mediaWallFade{
+  from{ opacity: 0; transform: translateY(6px) scale(0.995); }
+  to{ opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.mediaWallBaseline{
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+  margin: 0 18px 14px;
+}

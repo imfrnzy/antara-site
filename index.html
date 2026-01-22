@@ -2,14 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Antara — Reflect. Elevate. Restore</title>
+  <title>Antara — Where technology learns to feel</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="dark" />
-  <meta name="description" content="A calm, science-informed wellness companion." />
+  <meta name="description" content="An agentic, body-aware wellness companion for psychological and psychosomatic wellbeing." />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="icon" href="favicon.ico">
   <link rel="stylesheet" href="assets/site.css" />
+  <link rel="stylesheet" href="assets/mediawall.css" />
 </head>
 <body>
   <div class="topbar">
@@ -34,67 +35,85 @@
   </div>
 
   <div class="wrap">
-    
-  <div class="hero">
-    <div>
-      <span class="badge">Science-led calm, built for real nervous systems</span>
-      <div class="h1">Antara</div>
-      <p class="sub">
-        A body-aware, agentic wellness companion that helps you settle, reflect, and build steadier days.
-        Less “productivity”. More nervous system literacy.
-      </p>
-      <div style="display:flex;gap:10px;flex-wrap:wrap">
-        <a class="btn primary" href="download/">Get the app</a>
-        <a class="btn" href="product/">Explore the product</a>
-        <a class="btn ghost" href="screens/">See the screens</a>
+
+  <!-- Media wall hero -->
+  <div class="mediaWallSection" data-mediawall>
+    <div class="mediaWall">
+      <div class="mediaWallText">
+        <span class="badge">Science-led calm, built for real nervous systems</span>
+
+        <div class="mediaWallEyebrow" data-mediawall-eyebrow></div>
+        <div class="mediaWallHeadline" data-mediawall-headline></div>
+        <div class="mediaWallBody" data-mediawall-body></div>
+
+        <div class="mediaWallChips" aria-label="Antara pillars">
+          <div class="mediaWallChip" data-mediawall-chip="Reflect" data-active="false">
+            <b>Reflect</b><small>Clarity and meaning.</small>
+          </div>
+          <div class="mediaWallChip" data-mediawall-chip="Elevate" data-active="false">
+            <b>Elevate</b><small>Grow with intention.</small>
+          </div>
+          <div class="mediaWallChip" data-mediawall-chip="Heal" data-active="false">
+            <b>Heal</b><small>Regulate and restore.</small>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
+          <a class="btn primary" href="download/">Get the app</a>
+          <a class="btn" href="product/">Explore the product</a>
+          <a class="btn ghost" href="screens/">See the screens</a>
+        </div>
+
+        <div class="kpis" style="margin-top:16px">
+          <div class="kpi"><b>Reflect</b><small>Journalling + agentic prompts that stay human.</small></div>
+          <div class="kpi"><b>Elevate</b><small>Mindset and meaning, with practical micro-steps.</small></div>
+          <div class="kpi"><b>Heal</b><small>Body-first repair, paced and trauma-aware.</small></div>
+        </div>
       </div>
 
-      <div class="kpis">
-        <div class="kpi"><b>Reflect</b><small>Journaling + agentic chat, with meaning not noise.</small></div>
-        <div class="kpi"><b>Connect</b><small>Breathwork that feels guided, not preachy.</small></div>
-        <div class="kpi"><b>Posture</b><small>Body signals, posture cues, gentle corrections.</small></div>
+      <div class="mediaWallDeviceWrap">
+        <div class="device mediaWallDevice">
+          <div class="screen">
+            <img class="mediaWallImg" data-mediawall-img src="assets/antara_universe_iphone_1242x2688.png" alt="Antara app preview" />
+          </div>
+          <div style="margin-top:10px"><small>Live media wall, mirroring the in-app feel.</small></div>
+        </div>
       </div>
     </div>
-
-    <div class="device">
-      <div class="screen">
-        <img src="assets/antara_reflect.png" alt="Antara app screen preview" />
-      </div>
-      <div style="margin-top:10px"><small>Preview: Reflect module (illustrative).</small></div>
-    </div>
+    <div class="mediaWallBaseline" aria-hidden="true"></div>
   </div>
 
-  <div class="grid">
+  <div class="grid" style="margin-top:18px">
     <div class="card col-12">
       <div class="pad">
         <div class="h2">What Antara does (in plain English)</div>
         <p>
           Antara is built around a simple loop: stabilise state, make meaning, integrate and learn.
-          You can come in through the body (breathwork, posture), through language (journalling), or through conversation
+          You can come in through the body (breath, posture), through language (journalling), or through conversation
           (agentic prompts that help you stay honest without getting dramatic).
         </p>
         <p>
-          We keep the interface calm on purpose. Your brain already has enough tabs open.
+          The interface stays calm on purpose. Your brain already has enough tabs open.
         </p>
       </div>
     </div>
 
     <div class="card col-6">
       <div class="pad">
-        <div class="h2">Modules</div>
+        <div class="h2">The three pillars</div>
         <div class="module">
           <img src="assets/antara_reflect.png" alt="Reflect" />
-          <div><b>Reflect</b><p>Journalling, guided prompts, and AI-backed reflection.</p></div>
+          <div><b>Reflect</b><p>Make sense of thoughts and body signals, without overthinking.</p></div>
         </div>
         <div class="hr"></div>
         <div class="module">
-          <img src="assets/yoga.png" alt="Connect" />
-          <div><b>Connect</b><p>Breathwork journeys with gentle pacing and voice guidance.</p></div>
+          <img src="assets/antara_elevate.png" alt="Elevate" />
+          <div><b>Elevate</b><p>Shift mindset, rebuild agency, and move forward with steadiness.</p></div>
         </div>
         <div class="hr"></div>
         <div class="module">
-          <img src="assets/body.png" alt="Posture" />
-          <div><b>Posture</b><p>Body cues that nudge you back into alignment.</p></div>
+          <img src="assets/antara_heal.png" alt="Heal" />
+          <div><b>Heal</b><p>Release stored stress and re-pattern safety, body-first.</p></div>
         </div>
         <div style="margin-top:14px">
           <a class="btn" href="product/">Go deeper</a>
@@ -110,7 +129,7 @@
           and we aim for the least invasive path that still works.
         </p>
         <p>
-          If something needs a camera or microphone, the product should explain why, and still be useful if you say “no”.
+          If something needs a camera or microphone, the product explains why, and still stays useful if you say “no”.
         </p>
         <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
           <a class="btn" href="privacy/">Privacy policy</a>
@@ -122,7 +141,7 @@
     <div class="card col-12">
       <div class="pad">
         <div class="h2">Want the full screen tour?</div>
-        <p>We’ve laid out the core flows and screens in a way that mirrors the app structure, so it’s easy to understand what you’ll actually use.</p>
+        <p>We’ve laid out the core flows and screens in a way that mirrors the app structure, so it’s easy to see what you’ll actually use.</p>
         <a class="btn primary" href="screens/">View screens</a>
       </div>
     </div>
@@ -135,11 +154,14 @@
           <a href="terms/">Terms</a>
           <a href="privacy/">Privacy</a>
           <a href="delete/">Account deletion</a>
+          <a href="https://play.google.com/store/apps/details?id=com.antara.health" target="_blank" rel="noopener">Google Play</a>
+          <a href="https://apps.apple.com/us/app/antara-wellness/id6755032385" target="_blank" rel="noopener">App Store</a>
         </div>
       </div>
     </div>
   </div>
 
   <script src="assets/site.js"></script>
+  <script src="assets/mediawall.js"></script>
 </body>
 </html>
