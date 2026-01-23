@@ -140,107 +140,94 @@
   transform: translateY(-1px);
 }
 
+/* Device area on the right: now a compact, swipeable carousel (native scroll) */
 .mediaWallDeviceWrap{ display:flex; flex-direction:column; align-items:center; justify-content:center; }
 
-/* Out-of-world phone stack */
-.mediaWallStack{
+.screenCarousel{ width: min(520px, 100%); }
+
+.screenRail{
+  display:flex;
+  gap: 14px;
+  padding: 10px 6px 2px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.screenRail::-webkit-scrollbar{ display:none; }
+
+.screenItem{
+  flex: 0 0 78%;
+  scroll-snap-align: center;
+}
+
+.deviceFrame{
+  width: 100%;
+  aspect-ratio: 9 / 19.5;
+  max-height: 520px;
+  border-radius: 30px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: rgba(255,255,255,0.03);
+  box-shadow:
+    0 26px 70px rgba(0,0,0,0.62),
+    0 0 0 1px rgba(0,0,0,0.22) inset;
   position: relative;
-  width: min(520px, 100%);
-  height: 580px;
-  display:block;
-  transform: perspective(1400px) rotateY(-10deg) rotateX(8deg);
-  transform-origin: 50% 45%;
 }
 
-@media (max-width: 900px){
-  .mediaWallStack{ height: 560px; transform: none; }
-}
-
-.mediaWallPhone{ position:absolute; inset:auto; padding: 14px; }
-.mediaWallPhone .screen{ position:relative; }
-.mediaWallPhone .screen::after{
+.deviceFrame::after{
   content:"";
-  position:absolute;inset:-2px;
+  position:absolute; inset:-2px;
   pointer-events:none;
-  background: radial-gradient(620px 520px at 50% 0%, rgba(255,198,92,0.22), transparent 62%);
+  background: radial-gradient(520px 420px at 50% 0%, rgba(255,198,92,0.20), transparent 62%);
   mix-blend-mode: screen;
-  opacity:.58;
+  opacity: .55;
 }
 
-.mediaWallPhone.layer1{
-  left: 84px; top: 10px;
-  width: 360px;
-  z-index: 3;
-  animation: wallFloat1 8.5s ease-in-out infinite;
-}
-.mediaWallPhone.layer2{
-  left: 0px; top: 82px;
-  width: 320px;
-  z-index: 2;
-  opacity: .92;
-  filter: saturate(1.05);
-  animation: wallFloat2 10.5s ease-in-out infinite;
-}
-.mediaWallPhone.layer3{
-  left: 192px; top: 132px;
-  width: 300px;
-  z-index: 1;
-  opacity: .86;
-  filter: saturate(1.08) blur(.0px);
-  animation: wallFloat3 12.5s ease-in-out infinite;
+.deviceFrame img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display:block;
 }
 
+.screenDots{
+  display:flex;
+  gap: 8px;
+  justify-content:center;
+  align-items:center;
+  margin-top: 10px;
+}
+
+.screenDot{
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 0;
+  cursor: pointer;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.22);
+  background: rgba(255,255,255,0.10);
+  opacity: .8;
+}
+
+.screenDot:focus-visible{
+  outline: 2px solid rgba(255,198,92,0.55);
+  outline-offset: 4px;
+}
+
+.screenDot[data-active="true"]{
+  width: 20px;
+  background: rgba(255,198,92,0.34);
+  border-color: rgba(255,198,92,0.44);
+  opacity: 1;
+}
+
+/* Smaller, cleaner on phones */
 @media (max-width: 520px){
-  .mediaWallStack{height: 520px;}
-  /* On mobile, the float animations were overriding the centring transform.
-     Use mobile-specific keyframes that keep translateX(-50%) baked in. */
-  .mediaWallPhone.layer1{left: 50%; transform: translateX(-50%); width: 320px; animation-name: wallFloat1Mobile;}
-  .mediaWallPhone.layer2{left: 4px; width: 280px;}
-  .mediaWallPhone.layer3{left: 50%; transform: translateX(-50%); top: 150px; width: 260px; animation-name: wallFloat3Mobile;}
-}
-
-@keyframes wallFloat1Mobile{
-  0%,100%{ transform: translateX(-50%) translateY(0) rotateZ(-0.2deg); }
-  50%{ transform: translateX(calc(-50% + 6px)) translateY(-10px) rotateZ(0.2deg); }
-}
-
-@keyframes wallFloat3Mobile{
-  0%,100%{ transform: translateX(-50%) translateY(0) rotateZ(-0.1deg); }
-  50%{ transform: translateX(calc(-50% - 10px)) translateY(-8px) rotateZ(0.2deg); }
-}
-
-@keyframes wallFloat1{
-  0%,100%{ transform: translateY(0) translateX(0) rotateZ(-0.2deg) }
-  50%{ transform: translateY(-10px) translateX(6px) rotateZ(0.2deg) }
-}
-@keyframes wallFloat2{
-  0%,100%{ transform: translateY(0) translateX(0) rotateZ(0.2deg) }
-  50%{ transform: translateY(12px) translateX(8px) rotateZ(-0.2deg) }
-}
-@keyframes wallFloat3{
-  0%,100%{ transform: translateY(0) translateX(0) rotateZ(-0.1deg) }
-  50%{ transform: translateY(-8px) translateX(-10px) rotateZ(0.2deg) }
-}
-
-.mediaWallGlow{
-  position:absolute;
-  inset: -40px;
-  pointer-events:none;
-  background:
-    radial-gradient(420px 260px at 62% 18%, rgba(255,198,92,0.22), transparent 68%),
-    radial-gradient(460px 320px at 28% 62%, rgba(106,225,224,0.16), transparent 70%),
-    radial-gradient(620px 420px at 80% 78%, rgba(188,120,255,0.16), transparent 72%);
-  filter: blur(0px);
-  opacity: .95;
-}
-
-.mediaWallImg{ width:100%; display:block; transform: translateZ(0); }
-
-.mediaWallImgFade{ animation: mediaWallFade 520ms cubic-bezier(.2,.8,.2,1) both; }
-
-@keyframes mediaWallFade{
-  from{ opacity: 0; transform: translateY(10px) scale(0.992); filter: blur(2px); }
-  to{ opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+  .screenItem{ flex-basis: 88%; }
+  .deviceFrame{ max-height: 420px; border-radius: 28px; }
 }
 
 .mediaWallBaseline{
@@ -252,8 +239,6 @@
 .mediaWallHint{margin-top: 10px; opacity: .8}
 
 @media (prefers-reduced-motion: reduce){
-  .mediaWallStack{ transform: none !important; }
-  .mediaWallImgFade{ animation: none !important; }
   .mediaWallChip{ transition: none !important; }
-  .mediaWallPhone{ animation: none !important; }
+  .screenRail{ scroll-behavior: auto; }
 }

@@ -5,20 +5,19 @@
   var eyebrowEl = root.querySelector('[data-mediawall-eyebrow]');
   var headlineEl = root.querySelector('[data-mediawall-headline]');
   var bodyEl = root.querySelector('[data-mediawall-body]');
-  var imgEls = Array.prototype.slice.call(root.querySelectorAll('[data-mediawall-img]'));
   var chipEls = Array.prototype.slice.call(root.querySelectorAll('[data-mediawall-chip]'));
 
+  var rail = root.querySelector('[data-carousel-rail]');
+  var items = rail ? Array.prototype.slice.call(root.querySelectorAll('[data-carousel-item]')) : [];
+  var dotsWrap = root.querySelector('[data-carousel-dots]');
+
+  // Slides map 1:1 to carousel items (same order as index.html)
   var slides = [
     {
       id: 'identity',
       eyebrow: 'Awakened intelligence',
       headline: 'Where technology learns to feel.',
       body: 'Antara bridges the gap between the mind that thinks and the body that feels. Through breath, voice, motion, and micro-signals, it helps you come back into your inner realm.',
-      images: [
-        'assets/antara_universe_iphone_1242x2688.png',
-        'assets/antara_screen_clean_3_1242x2688.png',
-        'assets/antara_screen_clean_8_1242x2688.png'
-      ],
       active: null
     },
     {
@@ -26,11 +25,6 @@
       eyebrow: 'Reflect',
       headline: 'Your intelligent mirror.',
       body: 'Before it gives answers, Antara learns your inner structure: voice and words, facial micro-expressions, and context and rhythm. It mirrors patterns back, gently, so you can name what is happening.',
-      images: [
-        'assets/antara_screen_clean_3_1242x2688.png',
-        'assets/antara_universe_iphone_1242x2688.png',
-        'assets/antara_screen_clean_5_1242x2688.png'
-      ],
       active: 'Reflect'
     },
     {
@@ -38,11 +32,6 @@
       eyebrow: 'Elevate',
       headline: 'Your inner coach for mindset and meaning.',
       body: 'Elevation shifts you from survival-thinking to growth-thinking, without denying reality. It helps rewrite the default story, bring clarity to what matters, and run small micro-experiments that actually move you forward.',
-      images: [
-        'assets/antara_screen_clean_1_1242x2688.png',
-        'assets/antara_screen_clean_3_1242x2688.png',
-        'assets/antara_universe_iphone_1242x2688.png'
-      ],
       active: 'Elevate'
     },
     {
@@ -50,11 +39,6 @@
       eyebrow: 'Heal',
       headline: 'Your deep repair system.',
       body: 'Stress and emotion leave fingerprints in organs, muscles and breath. Heal starts where your nervous system speaks the loudest, then works body to mind, at your pace, with safety as the rule.',
-      images: [
-        'assets/antara_screen_clean_5_1242x2688.png',
-        'assets/antara_screen_clean_8_1242x2688.png',
-        'assets/antara_universe_iphone_1242x2688.png'
-      ],
       active: 'Heal'
     },
     {
@@ -62,14 +46,14 @@
       eyebrow: 'Body-aware mapping',
       headline: 'Start where it lives in the body.',
       body: 'A simple body map helps you notice hotspots and patterns, then offers quick actions, meaning, and the next gentle step.',
-      images: [
-        'assets/antara_screen_clean_8_1242x2688.png',
-        'assets/antara_screen_clean_5_1242x2688.png',
-        'assets/antara_screen_clean_1_1242x2688.png'
-      ],
       active: 'Heal'
     }
   ];
+
+  // Safety: if carousel items count differs, cap to smallest
+  var N = Math.min(slides.length, items.length || slides.length);
+  slides = slides.slice(0, N);
+  if(items.length) items = items.slice(0, N);
 
   var i = 0;
   var INTERVAL = 6200;
@@ -84,6 +68,14 @@
     });
   }
 
+  var dotEls = [];
+  function setActiveDot(idx){
+    if(!dotEls.length) return;
+    dotEls.forEach(function(el, j){
+      el.setAttribute('data-active', (j === idx) ? 'true' : 'false');
+    });
+  }
+
   function render(s){
     // restart text animation
     root.classList.remove('mwTick');
@@ -94,60 +86,78 @@
     if(headlineEl) headlineEl.textContent = s.headline || '';
     if(bodyEl) bodyEl.textContent = s.body || '';
 
-    if(imgEls && imgEls.length){
-      var imgs = (s.images && s.images.length) ? s.images : [];
-      imgEls.forEach(function(el, idx){
-        var next = imgs[idx] || imgs[0];
-        if(!next) return;
-        el.classList.remove('mediaWallImgFade');
-        void el.offsetHeight;
-        el.setAttribute('src', next);
-        el.classList.add('mediaWallImgFade');
-      });
-    }
-
     setActiveChip(s.active);
   }
 
-  function goTo(idx){
+  function centreTo(idx, behavior){
+    if(!rail || !items[idx]) return;
+    var item = items[idx];
+    var left = item.offsetLeft - (rail.clientWidth - item.clientWidth) / 2;
+    try{
+      rail.scrollTo({ left: left, behavior: behavior || 'smooth' });
+    }catch(e){
+      rail.scrollLeft = left;
+    }
+  }
+
+  function goTo(idx, opts){
     i = (idx + slides.length) % slides.length;
     render(slides[i]);
+    setActiveDot(i);
+    if(!(opts && opts.noScroll)){
+      centreTo(i, (opts && opts.behavior) || 'smooth');
+    }
     lastSwitch = performance.now();
   }
 
-  // Touch swipe (mobile): left/right to change slides
-  (function(){
-    var startX = 0, startY = 0, startT = 0;
-    var tracking = false;
-    root.addEventListener('touchstart', function(e){
-      if(!e.touches || e.touches.length !== 1) return;
-      var t = e.touches[0];
-      startX = t.clientX; startY = t.clientY; startT = performance.now();
-      tracking = true;
-    }, {passive:true});
-    root.addEventListener('touchmove', function(e){
-      if(!tracking || !e.touches || e.touches.length !== 1) return;
-      var t = e.touches[0];
-      var dx = t.clientX - startX;
-      var dy = t.clientY - startY;
-      // Cancel if it's mostly vertical scrolling
-      if(Math.abs(dy) > Math.abs(dx) * 1.25){ tracking = false; }
-    }, {passive:true});
-    root.addEventListener('touchend', function(e){
-      if(!tracking) return;
-      tracking = false;
-      var now = performance.now();
-      var dt = now - startT;
-      var endX = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientX : startX;
-      var dx = endX - startX;
-      if(dt < 600 && Math.abs(dx) > 48){
-        lastUser = performance.now();
-        goTo(i + (dx < 0 ? 1 : -1));
-      }
-    }, {passive:true});
-  })();
+  function nearestIndex(){
+    if(!rail || !items.length) return i;
+    var railCentre = rail.scrollLeft + rail.clientWidth / 2;
+    var best = 0;
+    var bestDist = Infinity;
+    for(var j=0; j<items.length; j++){
+      var it = items[j];
+      var itCentre = it.offsetLeft + it.clientWidth / 2;
+      var d = Math.abs(itCentre - railCentre);
+      if(d < bestDist){ bestDist = d; best = j; }
+    }
+    return best;
+  }
 
-  // Chips are clickable: jump to the relevant slide
+  // Dots
+  if(dotsWrap && slides.length){
+    dotsWrap.innerHTML = '';
+    slides.forEach(function(_, idx){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'screenDot';
+      b.setAttribute('aria-label', 'Slide ' + (idx + 1));
+      b.setAttribute('data-active', 'false');
+      b.addEventListener('click', function(){
+        lastUser = performance.now();
+        goTo(idx);
+      });
+      dotsWrap.appendChild(b);
+    });
+    dotEls = Array.prototype.slice.call(dotsWrap.querySelectorAll('.screenDot'));
+  }
+
+  // Scroll -> update active slide (debounced)
+  if(rail){
+    var scrollTimer = 0;
+    rail.addEventListener('pointerdown', function(){ lastUser = performance.now(); }, {passive:true});
+    rail.addEventListener('scroll', function(){
+      lastUser = performance.now();
+      if(scrollTimer) window.clearTimeout(scrollTimer);
+      scrollTimer = window.setTimeout(function(){
+        var n = nearestIndex();
+        if(n !== i) goTo(n, { noScroll: true });
+        else setActiveDot(i);
+      }, 90);
+    }, {passive:true});
+  }
+
+  // Chips -> jump to relevant slide
   chipEls.forEach(function(el){
     el.setAttribute('role','button');
     el.setAttribute('tabindex','0');
@@ -170,17 +180,19 @@
     if(!paused) lastSwitch = performance.now();
   });
 
-  // Auto-cycle using rAF (more reliable than setInterval on mobile)
+  // Auto-cycle (rAF, mobile-friendly)
   function loop(now){
     if(!lastSwitch) lastSwitch = now;
-    // After a manual interaction, pause auto-cycling briefly so it doesn't feel "fighty"
-    var recentlyTouched = lastUser && (now - lastUser) < 12000;
+    var recentlyTouched = lastUser && (now - lastUser) < 9000;
     if(!paused && !recentlyTouched && (now - lastSwitch) > INTERVAL){
       goTo(i + 1);
     }
     window.requestAnimationFrame(loop);
   }
 
-  goTo(0);
-  window.requestAnimationFrame(loop);
+  // Init after first layout
+  window.requestAnimationFrame(function(){
+    goTo(0, { behavior: 'auto' });
+    window.requestAnimationFrame(loop);
+  });
 })();
