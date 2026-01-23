@@ -68,7 +68,7 @@
   if(items.length) items = items.slice(0, N);
 
   var i = 0;
-  var INTERVAL = 4500;
+  var INTERVAL = 3000;
   var lastSwitch = 0;
   var paused = false;
   var lastUser = 0;
