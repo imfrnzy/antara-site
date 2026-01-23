@@ -125,7 +125,7 @@
     render(slides[i]);
     setActiveDot(i);
 
-    if(fixedSlot){
+    if(fixedSlot && rail){
       applyFixedSlotVisibility(i);
     }else{
       if(!(opts && opts.noScroll)){
@@ -169,7 +169,7 @@
   }
 
     // Fixed-slot swipe (mobile): change slide in-place
-    if(fixedSlot){
+    if(fixedSlot && rail){
       var sx = 0, sy = 0, down = false;
       rail.addEventListener('pointerdown', function(e){
         down = true;
