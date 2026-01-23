@@ -143,6 +143,94 @@
 /* Device area on the right: now a compact, swipeable carousel (native scroll) */
 .mediaWallDeviceWrap{ display:flex; flex-direction:column; align-items:center; justify-content:center; }
 
+/* =========================================================
+   Fixed-slot carousel (mwTrack/mwSlide)
+   Keeps the screen in ONE place and swaps slides in-place.
+   ========================================================= */
+
+.mediaWallStack{
+  width: min(520px, 100%);
+  margin: 0 auto;
+}
+
+/* Frame */
+.mwTrack{
+  position: relative;
+  width: 100%;
+  height: clamp(360px, 48vh, 560px);
+  overflow: hidden;
+  border-radius: 30px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.16);
+  box-shadow:
+    0 26px 70px rgba(0,0,0,0.62),
+    0 0 0 1px rgba(0,0,0,0.22) inset;
+  touch-action: pan-y; /* allow vertical scroll, we handle horizontal swipe */
+}
+
+/* Slides are stacked, not laid out */
+.mwSlide{
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  transform: translateX(8%);
+  transition: opacity 520ms ease, transform 620ms ease;
+  pointer-events: none;
+}
+
+.mwSlide.isActive{
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.mwSlide.isPrev{
+  opacity: 0;
+  transform: translateX(-8%);
+}
+
+/* Device fills the frame */
+.mwSlide .device.mediaWallPhone{
+  width: 100%;
+  height: 100%;
+  border-radius: 30px;
+  overflow: hidden;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.mwSlide .device.mediaWallPhone .screen{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Dots container for mw */
+.mwDots{
+  display:flex;
+  gap: 8px;
+  justify-content:center;
+  align-items:center;
+  margin-top: 10px;
+}
+
+/* Small phones: slightly shorter frame */
+@media (max-width: 520px){
+  .mwTrack{
+    height: clamp(320px, 46vh, 520px);
+    border-radius: 28px;
+  }
+}
+
+/* Very small devices: do NOT force stack height (it creates dead space) */
+@media (max-width: 420px){
+  .mediaWallStack{ height: auto; }
+}
+
+
 .screenCarousel{ width: min(520px, 100%); }
 
 .screenRail{
