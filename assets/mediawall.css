@@ -402,3 +402,14 @@
     border-radius: 28px;
   }
 }
+
+/* Ensure Antara screenshots fill the phone screen (fixes tiny image on mobile) */
+.mwTrack .mediaWallImg,
+.mwTrack .mediaWallPhone img,
+.mwTrack .screen img{
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-position: center;
+  object-fit: cover; /* see note below if you want full image shown */
+}
