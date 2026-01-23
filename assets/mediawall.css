@@ -92,7 +92,7 @@
 @media (max-width: 420px){
   .mediaWallPhone.layer2,
   .mediaWallPhone.layer3{display:none;}
-  .mediaWallStack{height: 500px;}
+  .mediaWallStack{height: auto;}
   .mediaWallPhone.layer1{left: 50%; transform: translateX(-50%); width: min(320px, 92vw);}
 }
 
@@ -157,7 +157,7 @@
 .mwTrack{
   position: relative;
   width: 100%;
-  height: clamp(360px, 48vh, 560px);
+  height: clamp(420px, 72vh, 720px); /* ✅ one rule */
   overflow: hidden;
   border-radius: 30px;
   background: rgba(255,255,255,0.03);
@@ -220,7 +220,7 @@
 /* Small phones: slightly shorter frame */
 @media (max-width: 520px){
   .mwTrack{
-    height: clamp(320px, 46vh, 520px);
+    height: clamp(420px, 64vh, 620px);
     border-radius: 28px;
   }
 }
@@ -411,5 +411,6 @@
   height: 100%;
   display: block;
   object-position: center;
-  object-fit: cover; /* see note below if you want full image shown */
+  object-fit: contain;
+   background: rgba(0,0,0,0.22);
 }
