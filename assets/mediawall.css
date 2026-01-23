@@ -417,8 +417,8 @@
   height: 100%;
   display: block;
   object-position: center;
-  object-fit: cover;
-  background: transparent;
+  object-fit: contain;              /* ✅ no cropping */
+  background: rgba(0,0,0,0.18);     /* ✅ makes letterbox feel intentional */
 }
 
 /* === Fix first-run “starts off-centre” + restore premium feel === */
@@ -475,8 +475,8 @@
   width: 100%;
   height: 100%;
   display: block;
-  object-fit: cover;
-  background: transparent;
+  object-fit: contain;              /* ✅ no cropping */
+  background: rgba(0,0,0,0.18);     /* ✅ same as above */
   object-position: center;
   transform: translateZ(0);
   will-change: transform;
