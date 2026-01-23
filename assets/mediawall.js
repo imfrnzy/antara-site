@@ -72,11 +72,8 @@
   var paused = false;
   var lastUser = 0;
 
-  // ✅ Fixed-slot if mwTrack exists, otherwise fallback to old “scroll rail on desktop” behaviour
-  var fixedSlot = !!mwTrack || (window.matchMedia && (
-    window.matchMedia('(max-width: 720px)').matches ||
-    window.matchMedia('(pointer: coarse)').matches
-  ));
+  // ✅ Fixed-slot ONLY when mwTrack markup exists
+  var fixedSlot = !!mwTrack;
 
   function setActiveChip(key){
     chipEls.forEach(function(el){
@@ -151,6 +148,20 @@
     lastSwitch = performance.now();
   }
 
+  function snapToNearest(behavior){
+    if(!rail || !items.length) return;
+    var n = nearestIndex();
+    if(n !== i){
+      i = n;              // keep state aligned with what user is looking at
+      render(slides[i]);
+      setActiveDot(i);
+    }else{
+      setActiveDot(i);
+    }
+    centreTo(i, behavior || 'smooth'); // <-- the missing piece
+  }
+
+  
   function nearestIndex(){
     if(!rail || !items.length) return i;
     var railCentre = rail.scrollLeft + rail.clientWidth / 2;
@@ -184,7 +195,7 @@
   }
 
   // ✅ Swipe (only when we actually have a rail)
-  if(rail && fixedSlot){
+  if(mwTrack && fixedSlot){
     var sx = 0, sy = 0, down = false;
 
     rail.addEventListener('pointerdown', function(e){
@@ -209,20 +220,23 @@
       else goTo(i - 1, { noScroll: true });
     }, {passive:true});
 
-    rail.addEventListener('pointercancel', function(){ down = false; }, {passive:true});
+    rail.addEventListener('pointercancel', function(){
+      down = false;
+    }, {passive:true});
   }
 
   // Scroll -> update active slide (debounced) for non-fixed rail mode
   if(rail && !fixedSlot){
     var scrollTimer = 0;
-    rail.addEventListener('pointerdown', function(){ lastUser = performance.now(); }, {passive:true});
+    rail.addEventListener('pointerup', function(){
+      lastUser = performance.now();
+      window.setTimeout(function(){ snapToNearest('smooth'); }, 0);
+    }, {passive:true});
     rail.addEventListener('scroll', function(){
       lastUser = performance.now();
       if(scrollTimer) window.clearTimeout(scrollTimer);
       scrollTimer = window.setTimeout(function(){
-        var n = nearestIndex();
-        if(n !== i) goTo(n, { noScroll: true });
-        else setActiveDot(i);
+        snapToNearest('smooth');
       }, 90);
     }, {passive:true});
   }
