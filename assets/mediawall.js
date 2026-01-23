@@ -61,6 +61,25 @@
   var paused = false;
   var lastUser = 0;
 
+
+  var fixedSlot = window.matchMedia && (
+    window.matchMedia('(max-width: 720px)').matches ||
+    window.matchMedia('(pointer: coarse)').matches
+  );
+
+  function applyFixedSlotVisibility(activeIdx){
+    if(!items.length) return;
+    for(var j=0; j<items.length; j++){
+      var it = items[j];
+      it.style.display = (j === activeIdx) ? 'block' : 'none';
+    }
+    if(rail){
+      rail.style.overflow = 'hidden';
+      rail.style.scrollSnapType = 'none';
+      rail.scrollLeft = 0;
+    }
+  }
+
   function setActiveChip(key){
     chipEls.forEach(function(el){
       var k = el.getAttribute('data-mediawall-chip') || '';
@@ -90,6 +109,7 @@
   }
 
   function centreTo(idx, behavior){
+    if(fixedSlot) return;
     if(!rail || !items[idx]) return;
     var item = items[idx];
     var left = item.offsetLeft - (rail.clientWidth - item.clientWidth) / 2;
@@ -104,9 +124,15 @@
     i = (idx + slides.length) % slides.length;
     render(slides[i]);
     setActiveDot(i);
-    if(!(opts && opts.noScroll)){
-      centreTo(i, (opts && opts.behavior) || 'smooth');
+
+    if(fixedSlot){
+      applyFixedSlotVisibility(i);
+    }else{
+      if(!(opts && opts.noScroll)){
+        centreTo(i, (opts && opts.behavior) || 'smooth');
+      }
     }
+
     lastSwitch = performance.now();
   }
 
@@ -142,20 +168,33 @@
     dotEls = Array.prototype.slice.call(dotsWrap.querySelectorAll('.screenDot'));
   }
 
-  // Scroll -> update active slide (debounced)
-  if(rail){
-    var scrollTimer = 0;
-    rail.addEventListener('pointerdown', function(){ lastUser = performance.now(); }, {passive:true});
-    rail.addEventListener('scroll', function(){
-      lastUser = performance.now();
-      if(scrollTimer) window.clearTimeout(scrollTimer);
-      scrollTimer = window.setTimeout(function(){
-        var n = nearestIndex();
-        if(n !== i) goTo(n, { noScroll: true });
-        else setActiveDot(i);
-      }, 90);
-    }, {passive:true});
-  }
+    // Fixed-slot swipe (mobile): change slide in-place
+    if(fixedSlot){
+      var sx = 0, sy = 0, down = false;
+      rail.addEventListener('pointerdown', function(e){
+        down = true;
+        sx = e.clientX; sy = e.clientY;
+        lastUser = performance.now();
+      }, {passive:true});
+
+      rail.addEventListener('pointerup', function(e){
+        if(!down) return;
+        down = false;
+        var dx = e.clientX - sx;
+        var dy = e.clientY - sy;
+
+        // ignore vertical scroll gestures
+        if(Math.abs(dy) > Math.abs(dx)) return;
+        if(Math.abs(dx) < 40) return;
+
+        lastUser = performance.now();
+        if(dx < 0) goTo(i + 1, { noScroll: true });
+        else goTo(i - 1, { noScroll: true });
+      }, {passive:true});
+
+      rail.addEventListener('pointercancel', function(){ down = false; }, {passive:true});
+    }
+
 
   // Chips -> jump to relevant slide
   chipEls.forEach(function(el){
@@ -191,8 +230,9 @@
   }
 
   // Init after first layout
-  window.requestAnimationFrame(function(){
+   window.requestAnimationFrame(function(){
     goTo(0, { behavior: 'auto' });
+    if(fixedSlot) applyFixedSlotVisibility(0);
     window.requestAnimationFrame(loop);
   });
 })();
