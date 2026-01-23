@@ -1,122 +1,316 @@
-/* Media wall: fixed-slot carousel (no horizontal scroll)
-   One screen at a time, auto-rotates, swipeable.
+/* Antara Media Wall (vanilla)
+   Cinematic but calm. No jump-scares.
 */
 
-.mediaWallDeviceWrap{
-  position: relative;
+.mediaWallSection{
   margin-top: 10px;
-}
-
-.mediaWallStack{
-  position: relative;
-  width: 100%;
-  max-width: 540px;
-  margin: 0 auto;
-  padding: 10px 0 8px;
-}
-
-/* FRAME: one stable viewport for the carousel */
-.mwTrack{
-  position: relative;
-  width: 100%;
-  height: clamp(360px, 48vh, 560px);
-  overflow: hidden;
-  border-radius: 28px;
-  background: rgba(255,255,255,0.03);
+  margin-bottom: 26px;
   border: 1px solid rgba(255,255,255,0.10);
-  box-shadow:
-    0 18px 60px rgba(0,0,0,0.55),
-    0 0 0 1px rgba(255,255,255,0.05) inset;
-  touch-action: pan-y; /* allow vertical scroll, we handle horizontal swipe */
+  border-radius: 26px;
+  overflow: hidden;
+  background:
+    radial-gradient(1200px 720px at 18% 10%, rgba(255,198,92,0.22), transparent 62%),
+    radial-gradient(1100px 720px at 92% 86%, rgba(106,225,224,0.18), transparent 62%),
+    radial-gradient(900px 560px at 72% 20%, rgba(188,120,255,0.18), transparent 62%),
+    linear-gradient(180deg, rgba(12,10,26,0.88), rgba(6,6,12,0.96));
+  box-shadow: 0 40px 120px rgba(0,0,0,0.68);
+  position: relative;
 }
 
-/* Slides are stacked, not laid out */
-.mwSlide{
-  position: absolute;
-  inset: 0;
+.mediaWallSection::before{
+  content:"";
+  position:absolute;inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,0.05), transparent 28%, transparent 72%, rgba(255,255,255,0.05));
+  opacity:.65;
+}
+
+/* Bottom scrim: prevents the phone stack from visually "bleeding" into the next section
+   when cards use glass transparency (especially on mobile). */
+.mediaWallSection::after{
+  content:"";
+  position:absolute;left:0;right:0;bottom:0;
+  height: 150px;
+  pointer-events:none;
+  background: linear-gradient(to bottom, rgba(6,6,12,0) 0%, rgba(6,6,12,0.72) 55%, rgba(6,6,12,0.92) 100%);
+}
+
+.mediaWall{
   display: grid;
-  place-items: center;
-  opacity: 0;
-  transform: translateX(8%);
-  transition: opacity 520ms ease, transform 620ms ease;
-  pointer-events: none;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 18px;
+  padding: 28px;
+  align-items: center;
 }
 
-.mwSlide.isActive{
-  opacity: 1;
-  transform: translateX(0);
-  pointer-events: auto;
+@media(max-width: 900px){
+  .mediaWall{ grid-template-columns: 1fr; }
 }
 
-.mwSlide.isPrev{
-  opacity: 0;
-  transform: translateX(-8%);
+.mediaWallText{ padding: 6px 4px; }
+
+.mediaWallEyebrow{
+  font-size: 12px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.64);
 }
 
-/* Device fills the frame */
-.device.mediaWallPhone{
+.mediaWallHeadline{
+  margin-top: 10px;
+  font-family: Fraunces, ui-serif, Georgia, serif;
+  font-size: clamp(36px, 4.4vw, 52px);
+  line-height: 1.04;
+  font-weight: 600;
+  color: rgba(255,255,255,0.98);
+  letter-spacing: -0.02em;
+}
+
+.mediaWallBody{
+  margin-top: 12px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.74);
+  max-width: 62ch;
+}
+
+/* Mobile polish: less crowding, cleaner type, chips behave */
+@media (max-width: 520px){
+  .mediaWallSection{ margin-bottom: 30px; }
+  .mediaWall{padding: 18px; gap: 14px;}
+  .mediaWallHeadline{font-size: clamp(30px, 8.4vw, 40px); line-height: 1.06;}
+  .mediaWallBody{font-size: 15px;}
+  .mediaWallChips{display:grid !important;grid-template-columns: 1fr 1fr 1fr; gap: 8px !important;}
+  .mediaWallChip{min-width: 0 !important; padding: 10px 10px !important; border-radius: 16px !important;}
+  .mediaWallChip b{font-size: 12px;}
+  .mediaWallChip small{font-size: 11px;}
+  .mediaWallHint{margin-top: 8px; text-align:center}
+}
+
+/* Very small devices: prioritise one hero phone for clarity */
+@media (max-width: 420px){
+  .mediaWallPhone.layer2,
+  .mediaWallPhone.layer3{display:none;}
+  .mediaWallStack{height: 500px;}
+  .mediaWallPhone.layer1{left: 50%; transform: translateX(-50%); width: min(320px, 92vw);}
+}
+
+/* Text transitions per slide */
+.mwTick .mediaWallEyebrow,
+.mwTick .mediaWallHeadline,
+.mwTick .mediaWallBody{
+  animation: mwText 560ms cubic-bezier(.2,.8,.2,1) both;
+}
+
+@keyframes mwText{
+  from{ opacity:0; transform: translateY(6px); filter: blur(1px); }
+  to{ opacity:1; transform: translateY(0); filter: blur(0); }
+}
+
+.mediaWallChips{
+  margin-top: 16px;
+  display:flex;
+  gap:10px;
+  flex-wrap: wrap;
+}
+
+.mediaWallChip{
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.04);
+  padding: 10px 12px;
+  border-radius: 14px;
+  min-width: 150px;
+  transition: transform .25s ease, border-color .25s ease, background .25s ease;
+  cursor: pointer;
+}
+
+.mediaWallChip:hover{
+  transform: translateY(-2px);
+  border-color: rgba(255,255,255,0.22);
+  background: rgba(255,255,255,0.06);
+}
+
+.mediaWallChip b{ display:block; font-size: 13px; color: rgba(255,255,255,0.92); }
+.mediaWallChip small{ display:block; margin-top: 4px; font-size: 12px; color: rgba(255,255,255,0.62); }
+
+.mediaWallChip[data-active="true"]{
+  border-color: rgba(255,198,92,0.44);
+  background: linear-gradient(180deg, rgba(255,198,92,0.10), rgba(255,255,255,0.03));
+  transform: translateY(-1px);
+}
+
+/* Device area on the right: now a compact, swipeable carousel (native scroll) */
+.mediaWallDeviceWrap{ display:flex; flex-direction:column; align-items:center; justify-content:center; }
+
+.screenCarousel{ width: min(520px, 100%); }
+
+.screenRail{
+  display:flex;
+  gap: 14px;
+  padding: 10px 6px 2px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.screenRail::-webkit-scrollbar{ display:none; }
+
+.screenItem{
+  flex: 0 0 78%;
+  scroll-snap-align: center;
+}
+
+.deviceFrame{
   width: 100%;
-  height: 100%;
-  border-radius: 28px;
+  aspect-ratio: 9 / 19.5;
+  max-height: 520px;
+  border-radius: 30px;
   overflow: hidden;
-  background: transparent;
-  border: 0;
-  box-shadow: none;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: rgba(255,255,255,0.03);
+  box-shadow:
+    0 26px 70px rgba(0,0,0,0.62),
+    0 0 0 1px rgba(0,0,0,0.22) inset;
+  position: relative;
 }
 
-.device.mediaWallPhone .screen{
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
+.deviceFrame::after{
+  content:"";
+  position:absolute; inset:-2px;
+  pointer-events:none;
+  background: radial-gradient(520px 420px at 50% 0%, rgba(255,198,92,0.20), transparent 62%);
+  mix-blend-mode: screen;
+  opacity: .55;
 }
 
-.mediaWallImg{
+.deviceFrame img{
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
-  display: block;
-  filter: saturate(1.02) contrast(1.03);
+  display:block;
 }
 
-/* Dots */
-.mwDots{
-  display: flex;
-  justify-content: center;
+.screenDots{
+  display:flex;
   gap: 8px;
-  padding: 10px 0 0;
+  justify-content:center;
+  align-items:center;
+  margin-top: 10px;
 }
 
-.mwDot{
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.20);
-  background: rgba(255,255,255,0.08);
-  padding: 0;
+.screenDot{
   appearance: none;
+  -webkit-appearance: none;
+  padding: 0;
+  cursor: pointer;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.22);
+  background: rgba(255,255,255,0.10);
+  opacity: .8;
 }
 
-.mwDot[aria-current="true"]{
-  width: 18px;
-  background: rgba(255,255,255,0.22);
-  border-color: rgba(255,255,255,0.35);
+.screenDot:focus-visible{
+  outline: 2px solid rgba(255,198,92,0.55);
+  outline-offset: 4px;
 }
 
-/* Gentle glow behind the frame */
-.mediaWallGlow{
-  position: absolute;
-  inset: -40px -20px -30px -20px;
-  pointer-events: none;
-  background:
-    radial-gradient(420px 260px at 60% 35%, rgba(255,200,120,0.10), transparent 70%),
-    radial-gradient(420px 320px at 40% 65%, rgba(120,180,255,0.10), transparent 70%);
-  filter: blur(10px);
-  opacity: 0.95;
-  z-index: -1;
+.screenDot[data-active="true"]{
+  width: 20px;
+  background: rgba(255,198,92,0.34);
+  border-color: rgba(255,198,92,0.44);
+  opacity: 1;
 }
 
-/* Small phones: slightly shorter frame */
-@media (max-width: 380px){
-  .mwTrack{ height: clamp(320px, 46vh, 520px); }
+/* Smaller, cleaner on phones */
+@media (max-width: 520px){
+  .screenItem{ flex-basis: 88%; }
+  .deviceFrame{ max-height: 420px; border-radius: 28px; }
+}
+
+.mediaWallBaseline{
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
+  margin: 0 22px 16px;
+}
+
+.mediaWallHint{margin-top: 10px; opacity: .8}
+
+@media (prefers-reduced-motion: reduce){
+  .mediaWallChip{ transition: none !important; }
+  .screenRail{ scroll-behavior: auto; }
+}
+
+/* =========================================================
+   Surgical compatibility layer
+   Makes your existing JS + data-attributes behave like the
+   richer .screenRail/.screenItem carousel without touching
+   left-side copy.
+   ========================================================= */
+
+/* If your HTML uses data-carousel-rail/items/dots, style them as the carousel */
+[data-carousel-rail]{
+  display:flex;
+  gap: 14px;
+  padding: 10px 6px 2px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+[data-carousel-rail]::-webkit-scrollbar{ display:none; }
+
+[data-carousel-item]{
+  flex: 0 0 78%;
+  scroll-snap-align: center;
+}
+
+/* Match dot styling */
+[data-carousel-dots]{
+  display:flex;
+  gap: 8px;
+  justify-content:center;
+  align-items:center;
+  margin-top: 10px;
+}
+
+/* Ensure the frame always looks premium even if markup differs */
+[data-carousel-item] .deviceFrame,
+[data-carousel-item] .device,
+[data-carousel-item] .mediaWallPhone,
+[data-carousel-item] .deviceFrameLike{
+  width: 100%;
+  aspect-ratio: 9 / 19.5;
+  max-height: 520px;
+  border-radius: 30px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: rgba(255,255,255,0.03);
+  box-shadow:
+    0 26px 70px rgba(0,0,0,0.62),
+    0 0 0 1px rgba(0,0,0,0.22) inset;
+  position: relative;
+}
+
+/* If there isn't a .deviceFrame wrapper, still style the image nicely */
+[data-carousel-item] img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display:block;
+}
+
+/* Mobile sizing tweak to avoid “too tall” */
+@media (max-width: 520px){
+  [data-carousel-item]{ flex-basis: 88%; }
+  [data-carousel-item] .deviceFrame,
+  [data-carousel-item] .device,
+  [data-carousel-item] .mediaWallPhone,
+  [data-carousel-item] .deviceFrameLike{
+    max-height: 420px;
+    border-radius: 28px;
+  }
 }
