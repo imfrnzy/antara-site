@@ -7,14 +7,15 @@
   var bodyEl = root.querySelector('[data-mediawall-body]');
   var chipEls = Array.prototype.slice.call(root.querySelectorAll('[data-mediawall-chip]'));
 
-  // ✅ Support BOTH markups:
-  // - Fixed-slot:  .mwTrack / .mwSlide / [data-mw-dots]
+  // Supports BOTH markups:
+  // - Fixed-slot:  [data-mw-track] / .mwSlide / [data-mw-dots]
   // - Scroll-rail: [data-carousel-rail] / [data-carousel-item] / [data-carousel-dots]
   var mwTrack = root.querySelector('[data-mw-track]');
   var rail = mwTrack || root.querySelector('[data-carousel-rail]');
+  var fixedSlot = !!mwTrack;
 
   var items = [];
-  if(mwTrack){
+  if(fixedSlot && mwTrack){
     items = Array.prototype.slice.call(mwTrack.querySelectorAll('.mwSlide'));
   }else if(rail){
     items = Array.prototype.slice.call(root.querySelectorAll('[data-carousel-item]'));
@@ -22,7 +23,7 @@
 
   var dotsWrap = root.querySelector('[data-mw-dots]') || root.querySelector('[data-carousel-dots]');
 
-  // Slides map 1:1 to carousel items (same order as index.html)
+  // Slides map 1:1 to items (same order as your HTML)
   var slides = [
     {
       id: 'identity',
@@ -61,7 +62,7 @@
     }
   ];
 
-  // Safety: if carousel items count differs, cap to smallest
+  // Safety cap
   var N = Math.min(slides.length, items.length || slides.length);
   slides = slides.slice(0, N);
   if(items.length) items = items.slice(0, N);
@@ -71,17 +72,6 @@
   var lastSwitch = 0;
   var paused = false;
   var lastUser = 0;
-
-  // ✅ Fixed-slot ONLY when mwTrack markup exists
-  var fixedSlot = !!mwTrack;
-
-  // Prevent 1st-paint “left” flash on scroll-rail mode
-  var revealRail = function(){};
-  if(rail && !fixedSlot){
-    rail.style.opacity = '0';
-    rail.style.transition = 'opacity 160ms ease';
-    revealRail = function(){ rail.style.opacity = '1'; };
-  }
 
   function setActiveChip(key){
     chipEls.forEach(function(el){
@@ -95,11 +85,11 @@
     if(!dotEls.length) return;
     dotEls.forEach(function(el, j){
       el.setAttribute('data-active', (j === idx) ? 'true' : 'false');
+      el.setAttribute('aria-current', (j === idx) ? 'true' : 'false');
     });
   }
 
   function render(s){
-    // restart text animation
     root.classList.remove('mwTick');
     void root.offsetHeight;
     root.classList.add('mwTick');
@@ -111,7 +101,6 @@
     setActiveChip(s.active);
   }
 
-  // ✅ Fixed-slot visibility via classes (prevents “vertical list” fallback)
   function applyFixedSlotVisibility(activeIdx){
     if(!items.length) return;
 
@@ -140,6 +129,33 @@
     }
   }
 
+  function nearestIndex(){
+    if(!rail || !items.length) return i;
+    var railCentre = rail.scrollLeft + rail.clientWidth / 2;
+    var best = 0;
+    var bestDist = Infinity;
+    for(var j=0; j<items.length; j++){
+      var it = items[j];
+      var itCentre = it.offsetLeft + it.clientWidth / 2;
+      var d = Math.abs(itCentre - railCentre);
+      if(d < bestDist){ bestDist = d; best = j; }
+    }
+    return best;
+  }
+
+  function snapToNearest(behavior){
+    if(!rail || !items.length) return;
+    var n = nearestIndex();
+    if(n !== i){
+      i = n;
+      render(slides[i]);
+      setActiveDot(i);
+    }else{
+      setActiveDot(i);
+    }
+    centreTo(i, behavior || 'smooth');
+  }
+
   function goTo(idx, opts){
     i = (idx + slides.length) % slides.length;
     render(slides[i]);
@@ -156,34 +172,6 @@
     lastSwitch = performance.now();
   }
 
-  function snapToNearest(behavior){
-    if(!rail || !items.length) return;
-    var n = nearestIndex();
-    if(n !== i){
-      i = n;              // keep state aligned with what user is looking at
-      render(slides[i]);
-      setActiveDot(i);
-    }else{
-      setActiveDot(i);
-    }
-    centreTo(i, behavior || 'smooth'); // <-- the missing piece
-  }
-
-  
-  function nearestIndex(){
-    if(!rail || !items.length) return i;
-    var railCentre = rail.scrollLeft + rail.clientWidth / 2;
-    var best = 0;
-    var bestDist = Infinity;
-    for(var j=0; j<items.length; j++){
-      var it = items[j];
-      var itCentre = it.offsetLeft + it.clientWidth / 2;
-      var d = Math.abs(itCentre - railCentre);
-      if(d < bestDist){ bestDist = d; best = j; }
-    }
-    return best;
-  }
-
   // Dots
   if(dotsWrap && slides.length){
     dotsWrap.innerHTML = '';
@@ -193,6 +181,7 @@
       b.className = 'screenDot';
       b.setAttribute('aria-label', 'Slide ' + (idx + 1));
       b.setAttribute('data-active', 'false');
+      b.setAttribute('aria-current', 'false');
       b.addEventListener('click', function(){
         lastUser = performance.now();
         goTo(idx);
@@ -202,24 +191,23 @@
     dotEls = Array.prototype.slice.call(dotsWrap.querySelectorAll('.screenDot'));
   }
 
-  // ✅ Swipe (only when we actually have a rail)
-  if(mwTrack && fixedSlot){
+  // Swipe (fixed-slot)
+  if(fixedSlot && mwTrack){
     var sx = 0, sy = 0, down = false;
 
-    rail.addEventListener('pointerdown', function(e){
+    mwTrack.addEventListener('pointerdown', function(e){
       down = true;
       sx = e.clientX; sy = e.clientY;
       lastUser = performance.now();
     }, {passive:true});
 
-    rail.addEventListener('pointerup', function(e){
+    mwTrack.addEventListener('pointerup', function(e){
       if(!down) return;
       down = false;
 
       var dx = e.clientX - sx;
       var dy = e.clientY - sy;
 
-      // ignore vertical scroll gestures
       if(Math.abs(dy) > Math.abs(dx)) return;
       if(Math.abs(dx) < 40) return;
 
@@ -228,18 +216,20 @@
       else goTo(i - 1, { noScroll: true });
     }, {passive:true});
 
-    rail.addEventListener('pointercancel', function(){
+    mwTrack.addEventListener('pointercancel', function(){
       down = false;
     }, {passive:true});
   }
 
-  // Scroll -> update active slide (debounced) for non-fixed rail mode
-  if(rail && !fixedSlot){
+  // Scroll-rail snap (only if you ever use it)
+  if(!fixedSlot && rail){
     var scrollTimer = 0;
+
     rail.addEventListener('pointerup', function(){
       lastUser = performance.now();
       window.setTimeout(function(){ snapToNearest('smooth'); }, 0);
     }, {passive:true});
+
     rail.addEventListener('scroll', function(){
       lastUser = performance.now();
       if(scrollTimer) window.clearTimeout(scrollTimer);
@@ -249,30 +239,30 @@
     }, {passive:true});
   }
 
-  // Chips -> jump to relevant slide
+  // Chips
   chipEls.forEach(function(el){
     el.setAttribute('role','button');
     el.setAttribute('tabindex','0');
     var key = el.getAttribute('data-mediawall-chip') || '';
+
     function handler(){
       lastUser = performance.now();
       var idx = slides.findIndex(function(s){ return s.active === key; });
       if(idx < 0) idx = 0;
       goTo(idx);
     }
+
     el.addEventListener('click', handler);
     el.addEventListener('keydown', function(e){
       if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); handler(); }
     });
   });
 
-  // Pause when tab is hidden
   document.addEventListener('visibilitychange', function(){
     paused = document.hidden;
     if(!paused) lastSwitch = performance.now();
   });
 
-  // Auto-cycle (rAF, mobile-friendly)
   function loop(now){
     if(!lastSwitch) lastSwitch = now;
     var recentlyTouched = lastUser && (now - lastUser) < 9000;
@@ -282,15 +272,18 @@
     window.requestAnimationFrame(loop);
   }
 
-  // Init after first layout
+  // ✅ INIT (this is the bit that fixes “starts a bit left first time”)
   window.requestAnimationFrame(function(){
+    if(fixedSlot) root.classList.add('mwNoAnim');
     goTo(0, { behavior: 'auto' });
 
-    if(!fixedSlot){
-      window.setTimeout(function(){
-        snapToNearest('auto');  // ensures truly centred after layout settles
-        revealRail();           // reveal only once centred
-      }, 0);
+    if(fixedSlot){
+      window.requestAnimationFrame(function(){
+        root.classList.remove('mwNoAnim');
+      });
+    }else{
+      window.requestAnimationFrame(function(){ centreTo(i, 'auto'); });
+      window.addEventListener('load', function(){ centreTo(i, 'auto'); }, {passive:true});
     }
 
     window.requestAnimationFrame(loop);
