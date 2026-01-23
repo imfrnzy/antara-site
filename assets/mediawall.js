@@ -7,9 +7,20 @@
   var bodyEl = root.querySelector('[data-mediawall-body]');
   var chipEls = Array.prototype.slice.call(root.querySelectorAll('[data-mediawall-chip]'));
 
-  var rail = root.querySelector('[data-carousel-rail]');
-  var items = rail ? Array.prototype.slice.call(root.querySelectorAll('[data-carousel-item]')) : [];
-  var dotsWrap = root.querySelector('[data-carousel-dots]');
+  // ✅ Support BOTH markups:
+  // - Fixed-slot:  .mwTrack / .mwSlide / [data-mw-dots]
+  // - Scroll-rail: [data-carousel-rail] / [data-carousel-item] / [data-carousel-dots]
+  var mwTrack = root.querySelector('[data-mw-track]');
+  var rail = mwTrack || root.querySelector('[data-carousel-rail]');
+
+  var items = [];
+  if(mwTrack){
+    items = Array.prototype.slice.call(mwTrack.querySelectorAll('.mwSlide'));
+  }else if(rail){
+    items = Array.prototype.slice.call(root.querySelectorAll('[data-carousel-item]'));
+  }
+
+  var dotsWrap = root.querySelector('[data-mw-dots]') || root.querySelector('[data-carousel-dots]');
 
   // Slides map 1:1 to carousel items (same order as index.html)
   var slides = [
@@ -61,24 +72,11 @@
   var paused = false;
   var lastUser = 0;
 
-
-  var fixedSlot = window.matchMedia && (
+  // ✅ Fixed-slot if mwTrack exists, otherwise fallback to old “scroll rail on desktop” behaviour
+  var fixedSlot = !!mwTrack || (window.matchMedia && (
     window.matchMedia('(max-width: 720px)').matches ||
     window.matchMedia('(pointer: coarse)').matches
-  );
-
-  function applyFixedSlotVisibility(activeIdx){
-    if(!items.length) return;
-    for(var j=0; j<items.length; j++){
-      var it = items[j];
-      it.style.display = (j === activeIdx) ? 'block' : 'none';
-    }
-    if(rail){
-      rail.style.overflow = 'hidden';
-      rail.style.scrollSnapType = 'none';
-      rail.scrollLeft = 0;
-    }
-  }
+  ));
 
   function setActiveChip(key){
     chipEls.forEach(function(el){
@@ -108,6 +106,23 @@
     setActiveChip(s.active);
   }
 
+  // ✅ Fixed-slot visibility via classes (prevents “vertical list” fallback)
+  function applyFixedSlotVisibility(activeIdx){
+    if(!items.length) return;
+
+    var prevIdx = (activeIdx - 1 + items.length) % items.length;
+
+    for(var j=0; j<items.length; j++){
+      var it = items[j];
+      it.classList.remove('isActive');
+      it.classList.remove('isPrev');
+      it.setAttribute('aria-hidden', (j === activeIdx) ? 'false' : 'true');
+    }
+
+    if(items[activeIdx]) items[activeIdx].classList.add('isActive');
+    if(items[prevIdx]) items[prevIdx].classList.add('isPrev');
+  }
+
   function centreTo(idx, behavior){
     if(fixedSlot) return;
     if(!rail || !items[idx]) return;
@@ -125,7 +140,7 @@
     render(slides[i]);
     setActiveDot(i);
 
-    if(fixedSlot && rail){
+    if(fixedSlot){
       applyFixedSlotVisibility(i);
     }else{
       if(!(opts && opts.noScroll)){
@@ -168,33 +183,49 @@
     dotEls = Array.prototype.slice.call(dotsWrap.querySelectorAll('.screenDot'));
   }
 
-    // Fixed-slot swipe (mobile): change slide in-place
-    if(fixedSlot && rail){
-      var sx = 0, sy = 0, down = false;
-      rail.addEventListener('pointerdown', function(e){
-        down = true;
-        sx = e.clientX; sy = e.clientY;
-        lastUser = performance.now();
-      }, {passive:true});
+  // ✅ Swipe (only when we actually have a rail)
+  if(rail && fixedSlot){
+    var sx = 0, sy = 0, down = false;
 
-      rail.addEventListener('pointerup', function(e){
-        if(!down) return;
-        down = false;
-        var dx = e.clientX - sx;
-        var dy = e.clientY - sy;
+    rail.addEventListener('pointerdown', function(e){
+      down = true;
+      sx = e.clientX; sy = e.clientY;
+      lastUser = performance.now();
+    }, {passive:true});
 
-        // ignore vertical scroll gestures
-        if(Math.abs(dy) > Math.abs(dx)) return;
-        if(Math.abs(dx) < 40) return;
+    rail.addEventListener('pointerup', function(e){
+      if(!down) return;
+      down = false;
 
-        lastUser = performance.now();
-        if(dx < 0) goTo(i + 1, { noScroll: true });
-        else goTo(i - 1, { noScroll: true });
-      }, {passive:true});
+      var dx = e.clientX - sx;
+      var dy = e.clientY - sy;
 
-      rail.addEventListener('pointercancel', function(){ down = false; }, {passive:true});
-    }
+      // ignore vertical scroll gestures
+      if(Math.abs(dy) > Math.abs(dx)) return;
+      if(Math.abs(dx) < 40) return;
 
+      lastUser = performance.now();
+      if(dx < 0) goTo(i + 1, { noScroll: true });
+      else goTo(i - 1, { noScroll: true });
+    }, {passive:true});
+
+    rail.addEventListener('pointercancel', function(){ down = false; }, {passive:true});
+  }
+
+  // Scroll -> update active slide (debounced) for non-fixed rail mode
+  if(rail && !fixedSlot){
+    var scrollTimer = 0;
+    rail.addEventListener('pointerdown', function(){ lastUser = performance.now(); }, {passive:true});
+    rail.addEventListener('scroll', function(){
+      lastUser = performance.now();
+      if(scrollTimer) window.clearTimeout(scrollTimer);
+      scrollTimer = window.setTimeout(function(){
+        var n = nearestIndex();
+        if(n !== i) goTo(n, { noScroll: true });
+        else setActiveDot(i);
+      }, 90);
+    }, {passive:true});
+  }
 
   // Chips -> jump to relevant slide
   chipEls.forEach(function(el){
@@ -230,9 +261,8 @@
   }
 
   // Init after first layout
-   window.requestAnimationFrame(function(){
+  window.requestAnimationFrame(function(){
     goTo(0, { behavior: 'auto' });
-    if(fixedSlot) applyFixedSlotVisibility(0);
     window.requestAnimationFrame(loop);
   });
 })();
