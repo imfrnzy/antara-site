@@ -1,198 +1,178 @@
-(function(){
-  var root = document.querySelector('[data-mediawall]');
-  if(!root) return;
+(() => {
+  const root = document.querySelector('[data-mediawall]');
+  if (!root) return;
 
-  var eyebrowEl = root.querySelector('[data-mediawall-eyebrow]');
-  var headlineEl = root.querySelector('[data-mediawall-headline]');
-  var bodyEl = root.querySelector('[data-mediawall-body]');
-  var chipEls = Array.prototype.slice.call(root.querySelectorAll('[data-mediawall-chip]'));
+  const carousel = root.querySelector('[data-mw-carousel]');
+  const track = root.querySelector('[data-mw-track]');
+  const dotsHost = root.querySelector('[data-mw-dots]');
 
-  var rail = root.querySelector('[data-carousel-rail]');
-  var items = rail ? Array.prototype.slice.call(root.querySelectorAll('[data-carousel-item]')) : [];
-  var dotsWrap = root.querySelector('[data-carousel-dots]');
+  if (!carousel || !track || !dotsHost) return;
 
-  // Slides map 1:1 to carousel items (same order as index.html)
-  var slides = [
-    {
-      id: 'identity',
-      eyebrow: 'Awakened intelligence',
+  const slides = Array.from(track.querySelectorAll('.mwSlide'));
+  const chips  = Array.from(root.querySelectorAll('[data-mediawall-chip]'));
+
+  const eyebrowEl  = root.querySelector('[data-mediawall-eyebrow]');
+  const headlineEl = root.querySelector('[data-mediawall-headline]');
+  const bodyEl     = root.querySelector('[data-mediawall-body]');
+
+  const COPY = {
+    Reflect: {
+      eyebrow: 'AWAKENED INTELLIGENCE',
       headline: 'Where technology learns to feel.',
-      body: 'Antara bridges the gap between the mind that thinks and the body that feels. Through breath, voice, motion, and micro-signals, it helps you come back into your inner realm.',
-      active: null
+      body: 'Journalling and agentic prompts that stay human. Make meaning, not noise.'
     },
-    {
-      id: 'reflect',
-      eyebrow: 'Reflect',
-      headline: 'Your intelligent mirror.',
-      body: 'Before it gives answers, Antara learns your inner structure: voice and words, facial micro-expressions, and context and rhythm. It mirrors patterns back, gently, so you can name what is happening.',
-      active: 'Reflect'
-    },
-    {
-      id: 'elevate',
-      eyebrow: 'Elevate',
+    Elevate: {
+      eyebrow: 'ELEVATE',
       headline: 'Your inner coach for mindset and meaning.',
-      body: 'Elevation shifts you from survival-thinking to growth-thinking, without denying reality. It helps rewrite the default story, bring clarity to what matters, and run small micro-experiments that actually move you forward.',
-      active: 'Elevate'
+      body: 'Micro-steps that shift you from survival-thinking to growth, without denying reality.'
     },
-    {
-      id: 'heal',
-      eyebrow: 'Heal',
-      headline: 'Your deep repair system.',
-      body: 'Stress and emotion leave fingerprints in organs, muscles and breath. Heal starts where your nervous system speaks the loudest, then works body to mind, at your pace, with safety as the rule.',
-      active: 'Heal'
-    },
-    {
-      id: 'inner-map',
-      eyebrow: 'Body-aware mapping',
-      headline: 'Start where it lives in the body.',
-      body: 'A simple body map helps you notice hotspots and patterns, then offers quick actions, meaning, and the next gentle step.',
-      active: 'Heal'
+    Heal: {
+      eyebrow: 'HEAL',
+      headline: 'Body-first repair, paced and trauma-aware.',
+      body: 'Start where your nervous system speaks loudest, release stored stress, rebuild safety.'
     }
-  ];
+  };
 
-  // Safety: if carousel items count differs, cap to smallest
-  var N = Math.min(slides.length, items.length || slides.length);
-  slides = slides.slice(0, N);
-  if(items.length) items = items.slice(0, N);
+  let active = 0;
+  let timer = null;
+  let pausedUntil = 0;
 
-  var i = 0;
-  var INTERVAL = 6200;
-  var lastSwitch = 0;
-  var paused = false;
-  var lastUser = 0;
+  // Build dots
+  const dots = slides.map((_, i) => {
+    const b = document.createElement('button');
+    b.className = 'mwDot';
+    b.type = 'button';
+    b.setAttribute('aria-label', `Go to slide ${i + 1}`);
+    b.addEventListener('click', () => {
+      pauseAuto(2500);
+      goTo(i, i > active ? 1 : -1);
+    });
+    dotsHost.appendChild(b);
+    return b;
+  });
 
-  function setActiveChip(key){
-    chipEls.forEach(function(el){
-      var k = el.getAttribute('data-mediawall-chip') || '';
-      el.setAttribute('data-active', (key && k === key) ? 'true' : 'false');
+  function keyFor(i){
+    return (slides[i] && slides[i].getAttribute('data-mw-key')) || 'Reflect';
+  }
+
+  function setDots(i){
+    dots.forEach((d, idx) => d.setAttribute('aria-current', idx === i ? 'true' : 'false'));
+  }
+
+  function setChipActive(key){
+    chips.forEach(c => {
+      const isActive = c.getAttribute('data-mediawall-chip') === key;
+      c.setAttribute('data-active', isActive ? 'true' : 'false');
     });
   }
 
-  var dotEls = [];
-  function setActiveDot(idx){
-    if(!dotEls.length) return;
-    dotEls.forEach(function(el, j){
-      el.setAttribute('data-active', (j === idx) ? 'true' : 'false');
+  function setCopy(key){
+    const c = COPY[key] || COPY.Reflect;
+
+    // If you prefer JS to always control copy, uncomment these 3 lines and remove the guards below.
+    // if (eyebrowEl) eyebrowEl.textContent = c.eyebrow;
+    // if (headlineEl) headlineEl.textContent = c.headline;
+    // if (bodyEl) bodyEl.textContent = c.body;
+
+    if (eyebrowEl && !eyebrowEl.textContent) eyebrowEl.textContent = c.eyebrow;
+    if (headlineEl && !headlineEl.textContent) headlineEl.textContent = c.headline;
+    if (bodyEl && !bodyEl.textContent) bodyEl.textContent = c.body;
+  }
+
+  function render(newIndex, dir){
+    const prev = active;
+    active = (newIndex + slides.length) % slides.length;
+
+    slides.forEach((s, i) => {
+      s.classList.remove('isActive', 'isPrev');
+      if (i === active) s.classList.add('isActive');
+      if (i === prev) s.classList.add('isPrev');
     });
+
+    const key = keyFor(active);
+    setDots(active);
+    setChipActive(key);
+    setCopy(key);
   }
 
-  function render(s){
-    // restart text animation
-    root.classList.remove('mwTick');
-    void root.offsetHeight;
-    root.classList.add('mwTick');
-
-    if(eyebrowEl) eyebrowEl.textContent = s.eyebrow || '';
-    if(headlineEl) headlineEl.textContent = s.headline || '';
-    if(bodyEl) bodyEl.textContent = s.body || '';
-
-    setActiveChip(s.active);
+  function goTo(i, dir){
+    render(i, dir);
   }
 
-  function centreTo(idx, behavior){
-    if(!rail || !items[idx]) return;
-    var item = items[idx];
-    var left = item.offsetLeft - (rail.clientWidth - item.clientWidth) / 2;
-    try{
-      rail.scrollTo({ left: left, behavior: behavior || 'smooth' });
-    }catch(e){
-      rail.scrollLeft = left;
-    }
+  function pauseAuto(ms){
+    pausedUntil = Date.now() + ms;
   }
 
-  function goTo(idx, opts){
-    i = (idx + slides.length) % slides.length;
-    render(slides[i]);
-    setActiveDot(i);
-    if(!(opts && opts.noScroll)){
-      centreTo(i, (opts && opts.behavior) || 'smooth');
-    }
-    lastSwitch = performance.now();
+  function startAuto(){
+    stopAuto();
+    timer = setInterval(() => {
+      if (document.hidden) return;
+      if (Date.now() < pausedUntil) return;
+      goTo(active + 1, 1);
+    }, 4200);
   }
 
-  function nearestIndex(){
-    if(!rail || !items.length) return i;
-    var railCentre = rail.scrollLeft + rail.clientWidth / 2;
-    var best = 0;
-    var bestDist = Infinity;
-    for(var j=0; j<items.length; j++){
-      var it = items[j];
-      var itCentre = it.offsetLeft + it.clientWidth / 2;
-      var d = Math.abs(itCentre - railCentre);
-      if(d < bestDist){ bestDist = d; best = j; }
-    }
-    return best;
+  function stopAuto(){
+    if (timer) clearInterval(timer);
+    timer = null;
   }
 
-  // Dots
-  if(dotsWrap && slides.length){
-    dotsWrap.innerHTML = '';
-    slides.forEach(function(_, idx){
-      var b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'screenDot';
-      b.setAttribute('aria-label', 'Slide ' + (idx + 1));
-      b.setAttribute('data-active', 'false');
-      b.addEventListener('click', function(){
-        lastUser = performance.now();
-        goTo(idx);
-      });
-      dotsWrap.appendChild(b);
-    });
-    dotEls = Array.prototype.slice.call(dotsWrap.querySelectorAll('.screenDot'));
-  }
-
-  // Scroll -> update active slide (debounced)
-  if(rail){
-    var scrollTimer = 0;
-    rail.addEventListener('pointerdown', function(){ lastUser = performance.now(); }, {passive:true});
-    rail.addEventListener('scroll', function(){
-      lastUser = performance.now();
-      if(scrollTimer) window.clearTimeout(scrollTimer);
-      scrollTimer = window.setTimeout(function(){
-        var n = nearestIndex();
-        if(n !== i) goTo(n, { noScroll: true });
-        else setActiveDot(i);
-      }, 90);
-    }, {passive:true});
-  }
-
-  // Chips -> jump to relevant slide
-  chipEls.forEach(function(el){
-    el.setAttribute('role','button');
-    el.setAttribute('tabindex','0');
-    var key = el.getAttribute('data-mediawall-chip') || '';
-    function handler(){
-      lastUser = performance.now();
-      var idx = slides.findIndex(function(s){ return s.active === key; });
-      if(idx < 0) idx = 0;
-      goTo(idx);
-    }
-    el.addEventListener('click', handler);
-    el.addEventListener('keydown', function(e){
-      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); handler(); }
+  // Chips -> jump to slide
+  chips.forEach(chip => {
+    chip.style.cursor = 'pointer';
+    chip.addEventListener('click', () => {
+      const key = chip.getAttribute('data-mediawall-chip');
+      const idx = slides.findIndex(s => s.getAttribute('data-mw-key') === key);
+      if (idx >= 0){
+        pauseAuto(3500);
+        goTo(idx, idx > active ? 1 : -1);
+      }
     });
   });
 
-  // Pause when tab is hidden
-  document.addEventListener('visibilitychange', function(){
-    paused = document.hidden;
-    if(!paused) lastSwitch = performance.now();
-  });
+  // Swipe handling (in-place frame)
+  let startX = 0, startY = 0, dragging = false;
 
-  // Auto-cycle (rAF, mobile-friendly)
-  function loop(now){
-    if(!lastSwitch) lastSwitch = now;
-    var recentlyTouched = lastUser && (now - lastUser) < 9000;
-    if(!paused && !recentlyTouched && (now - lastSwitch) > INTERVAL){
-      goTo(i + 1);
+  track.addEventListener('pointerdown', (e) => {
+    dragging = true;
+    startX = e.clientX;
+    startY = e.clientY;
+    pauseAuto(4500);
+  }, { passive: true });
+
+  track.addEventListener('pointermove', (e) => {
+    if (!dragging) return;
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+
+    // If it’s clearly a horizontal gesture, stop it feeling laggy
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 8) {
+      e.preventDefault?.();
     }
-    window.requestAnimationFrame(loop);
-  }
+  }, { passive: false });
 
-  // Init after first layout
-  window.requestAnimationFrame(function(){
-    goTo(0, { behavior: 'auto' });
-    window.requestAnimationFrame(loop);
+  track.addEventListener('pointerup', (e) => {
+    if (!dragging) return;
+    dragging = false;
+
+    const dx = e.clientX - startX;
+    if (Math.abs(dx) < 40) return;
+
+    if (dx < 0) goTo(active + 1, 1);
+    else goTo(active - 1, -1);
   });
+
+  track.addEventListener('pointercancel', () => { dragging = false; });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stopAuto();
+    else startAuto();
+  });
+
+  // Init
+  slides.forEach((s, i) => s.classList.toggle('isActive', i === 0));
+  setDots(0);
+  setChipActive(keyFor(0));
+  setCopy(keyFor(0));
+  startAuto();
 })();
