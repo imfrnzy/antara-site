@@ -75,6 +75,14 @@
   // ✅ Fixed-slot ONLY when mwTrack markup exists
   var fixedSlot = !!mwTrack;
 
+  // Prevent 1st-paint “left” flash on scroll-rail mode
+  var revealRail = function(){};
+  if(rail && !fixedSlot){
+    rail.style.opacity = '0';
+    rail.style.transition = 'opacity 160ms ease';
+    revealRail = function(){ rail.style.opacity = '1'; };
+  }
+
   function setActiveChip(key){
     chipEls.forEach(function(el){
       var k = el.getAttribute('data-mediawall-chip') || '';
@@ -277,6 +285,14 @@
   // Init after first layout
   window.requestAnimationFrame(function(){
     goTo(0, { behavior: 'auto' });
+
+    if(!fixedSlot){
+      window.setTimeout(function(){
+        snapToNearest('auto');  // ensures truly centred after layout settles
+        revealRail();           // reveal only once centred
+      }, 0);
+    }
+
     window.requestAnimationFrame(loop);
   });
 })();
