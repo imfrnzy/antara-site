@@ -425,6 +425,10 @@
 .mwNoAnim .mwSlide{
   transition: none !important;
 }
+/* Also remove the default slide offset on first paint */
+.mwNoAnim .mwSlide{
+  transform: none !important;
+}
 
 /* Premium frame treatment: only add the extra property here */
 .mwTrack{
