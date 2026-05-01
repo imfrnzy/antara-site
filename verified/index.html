@@ -351,10 +351,14 @@
       setInterval(spawn, 1800);
     })();
 
-    // Desktop awareness
+    // Auto-open the app on mobile, show page on desktop
     (function () {
       var isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
-      if (!isMobile) {
+      if (isMobile) {
+        // Fire the deep link immediately — if the app is installed it opens
+        window.location.href = 'antara://create-account';
+      } else {
+        // On desktop, dim the open button and show a helpful note
         var btn = document.getElementById('openAppBtn');
         var note = document.getElementById('desktopNote');
         if (btn) { btn.style.opacity = '.45'; btn.style.pointerEvents = 'none'; }
