@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Antara — You're in</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="description" content="Your Antara account is confirmed. Your inner space is waiting." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&display=swap" rel="stylesheet">
+  <link rel="icon" href="../favicon.ico">
+  <link rel="stylesheet" href="../assets/site.css" />
+  <style>
+    .v-shell {
+      position: relative;
+      min-height: calc(100vh - 65px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 20px 80px;
+      overflow: hidden;
+    }
+
+    .v-aurora {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background:
+        radial-gradient(900px 600px at 15% 20%, rgba(188,120,255,.13), transparent 65%),
+        radial-gradient(700px 500px at 85% 75%, rgba(106,225,224,.11), transparent 65%),
+        radial-gradient(500px 400px at 50% 45%, rgba(255,198,92,.07), transparent 60%);
+      animation: auroraShift 12s ease-in-out infinite alternate;
+    }
+    @keyframes auroraShift {
+      0%   { opacity: .80; transform: scale(1) translateY(0); }
+      100% { opacity: 1;   transform: scale(1.04) translateY(-12px); }
+    }
+
+    .v-card {
+      position: relative;
+      z-index: 2;
+      max-width: 500px;
+      width: 100%;
+      background:
+        radial-gradient(160% 120% at 20% 0%, rgba(255,255,255,.08), rgba(255,255,255,.03) 50%, rgba(255,255,255,.015) 100%),
+        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 32px;
+      padding: 52px 44px 44px;
+      text-align: center;
+      box-shadow:
+        0 32px 96px rgba(0,0,0,.55),
+        0 0 0 1px rgba(255,255,255,.04) inset,
+        0 1px 0 rgba(255,255,255,.10) inset;
+      backdrop-filter: blur(24px);
+      animation: cardEnter .8s cubic-bezier(.22,1,.36,1) both;
+    }
+    @keyframes cardEnter {
+      from { opacity: 0; transform: translateY(22px) scale(.98); filter: blur(4px); }
+      to   { opacity: 1; transform: translateY(0) scale(1);    filter: blur(0); }
+    }
+    @media (max-width: 520px) {
+      .v-card { padding: 40px 24px 36px; border-radius: 28px; }
+    }
+
+    .v-orb-wrap {
+      position: relative;
+      width: 84px;
+      height: 84px;
+      margin: 0 auto 32px;
+    }
+    .v-orb {
+      width: 84px;
+      height: 84px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, rgba(255,198,92,.55), rgba(188,120,255,.35) 50%, rgba(106,225,224,.25) 80%);
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow:
+        0 0 0 12px rgba(188,120,255,.07),
+        0 0 0 24px rgba(188,120,255,.04),
+        0 18px 48px rgba(0,0,0,.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: orbBreathe 4s ease-in-out infinite;
+    }
+    @keyframes orbBreathe {
+      0%, 100% { box-shadow: 0 0 0 10px rgba(188,120,255,.07), 0 0 0 22px rgba(188,120,255,.04), 0 18px 48px rgba(0,0,0,.45); transform: scale(1); }
+      50%       { box-shadow: 0 0 0 16px rgba(188,120,255,.10), 0 0 0 32px rgba(188,120,255,.05), 0 18px 48px rgba(0,0,0,.45); transform: scale(1.03); }
+    }
+    .v-orb img {
+      width: 48px;
+      height: 48px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .v-eyebrow {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(255,198,92,.85);
+      margin-bottom: 12px;
+      animation: fadeUp .7s .15s cubic-bezier(.22,1,.36,1) both;
+    }
+    .v-title {
+      font-family: Fraunces, ui-serif, Georgia, serif;
+      font-size: clamp(34px, 7vw, 46px);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -.5px;
+      margin: 0 0 18px;
+      background: linear-gradient(135deg, rgba(255,255,255,.96) 0%, rgba(188,120,255,.90) 55%, rgba(106,225,224,.85) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: fadeUp .7s .25s cubic-bezier(.22,1,.36,1) both;
+    }
+    .v-body {
+      font-size: 16px;
+      line-height: 1.75;
+      color: rgba(255,255,255,.65);
+      margin: 0 auto 36px;
+      max-width: 36ch;
+      animation: fadeUp .7s .35s cubic-bezier(.22,1,.36,1) both;
+    }
+
+    .v-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      animation: fadeUp .7s .45s cubic-bezier(.22,1,.36,1) both;
+    }
+    .v-btn-primary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 17px 24px;
+      border-radius: 18px;
+      background:
+        radial-gradient(140% 160% at 20% 0%, rgba(255,198,92,.28), rgba(188,120,255,.18) 50%, rgba(106,225,224,.12) 100%),
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      border: 1px solid rgba(255,198,92,.30);
+      color: rgba(255,255,255,.95);
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: -.1px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+      box-shadow: 0 8px 32px rgba(0,0,0,.35), 0 0 0 1px rgba(255,255,255,.04) inset;
+    }
+    .v-btn-primary:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255,198,92,.45);
+      box-shadow: 0 14px 44px rgba(0,0,0,.45), 0 0 32px rgba(188,120,255,.12);
+      opacity: 1;
+    }
+    .v-btn-primary:active { transform: scale(.99); }
+
+    .v-desktop-note {
+      display: none;
+      font-size: 12px;
+      color: rgba(255,255,255,.38);
+      margin: 0 0 6px;
+      line-height: 1.5;
+    }
+
+    .v-stores {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+    .v-store-btn {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.72);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background .18s, border-color .18s, transform .18s;
+    }
+    .v-store-btn:hover {
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.18);
+      transform: translateY(-1px);
+      opacity: 1;
+    }
+
+    .v-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 4px 0;
+    }
+    .v-divider span {
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,.08);
+    }
+    .v-divider small {
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.30);
+    }
+
+    .v-particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+    .v-particle {
+      position: absolute;
+      border-radius: 50%;
+      animation: floatUp linear infinite;
+      opacity: 0;
+    }
+    @keyframes floatUp {
+      0%   { opacity: 0; transform: translateY(0) scale(0); }
+      10%  { opacity: 1; }
+      90%  { opacity: .4; }
+      100% { opacity: 0; transform: translateY(-100vh) scale(1.2); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .v-card, .v-eyebrow, .v-title, .v-body, .v-actions { animation: none; opacity: 1; transform: none; }
+      .v-orb { animation: none; }
+      .v-aurora { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="v-aurora"></div>
+  <div class="v-particles" id="vParticles"></div>
+
+  <div class="topbar">
+    <div class="nav">
+      <a class="brand" href="../">
+        <span class="logo"><img src="../assets/antra-icon-512.png" alt="Antara" /></span>
+        <b>Antara</b>
+      </a>
+      <div class="navlinks">
+        <a data-nav href="../">Home</a>
+        <a data-nav href="../product/">Product</a>
+        <a data-nav href="../pricing/">Pricing</a>
+        <a data-nav href="../support/">Support</a>
+        <a data-nav href="../privacy/">Privacy</a>
+      </div>
+      <div class="cta">
+        <a class="btn ghost" href="../download/">Get the app</a>
+        <a class="btn primary" href="../pricing/">Start free</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="v-shell">
+    <div class="v-card">
+
+      <div class="v-orb-wrap">
+        <div class="v-orb">
+          <img src="../assets/antra-icon-512.png" alt="Antara" />
+        </div>
+      </div>
+
+      <div class="v-eyebrow">You're confirmed</div>
+
+      <h1 class="v-title">Your inner space<br>is waiting.</h1>
+
+      <p class="v-body">
+        Something quiet and real begins here.<br>
+        Open Antara on your phone to continue.
+      </p>
+
+      <div class="v-actions">
+        <p class="v-desktop-note" id="desktopNote">You're on a desktop. Open this page on your phone to launch Antara directly.</p>
+
+        <a class="v-btn-primary" href="antara://create-account" id="openAppBtn">
+          <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="3"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+          Open Antara
+        </a>
+
+        <div class="v-divider">
+          <span></span>
+          <small>Don't have the app yet?</small>
+          <span></span>
+        </div>
+
+        <div class="v-stores">
+          <a class="v-store-btn" href="https://apps.apple.com/us/app/antara-wellness/id6755032385" target="_blank" rel="noopener">
+            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M17.5 13c-.02 2.37 2.07 3.46 2.08 3.47-.02.04-.32 1.1-1.06 2.18-.67.97-1.37 1.95-2.47 1.97-1.07.02-1.42-.64-2.65-.64-1.24 0-1.63.63-2.64.65-1.05.02-1.85-1.05-2.52-2.02-1.37-1.99-2.42-5.63-1.01-8.08.7-1.21 1.95-1.98 3.31-2.01 1.05-.02 2.04.7 2.68.7.63 0 1.83-.87 3.08-.74.52.02 1.99.21 2.93 1.58-.07.04-1.75 1.02-1.73 2.94m-2.8-5.32c.57-.69.96-1.65.85-2.61-.83.03-1.83.55-2.42 1.25-.52.6-.9 1.56-.79 2.5.92.07 1.86-.5 2.36-1.14"/></svg>
+            App Store
+          </a>
+          <a class="v-store-btn" href="https://play.google.com/store/apps/details?id=com.antara.health" target="_blank" rel="noopener">
+            <svg width="15" height="15" viewBox="0 0 533.5 544.3" fill="none"><path fill="#4285f4" d="M533.5 278.4c0-17.4-1.4-34.1-4.1-50.2H272v95.1h147.2c-6.4 34.9-25.8 64.5-55 84.4l88.7 69.4c51.7-47.7 80.6-118 80.6-198.7z"/><path fill="#34a853" d="M272 544.3c74.7 0 137.4-24.7 183.2-67.2l-88.7-69.4c-24.6 16.5-56.2 26.1-94.5 26.1-72.7 0-134.3-49.1-156.3-115.1l-91.9 71c46.7 92.5 142.3 154.6 248.2 154.6z"/><path fill="#fbbc05" d="M115.7 318.6c-10.4-30.8-10.4-63.9 0-94.7l-91.9-71C-32.5 242.2-32.5 358.6 23.8 441l91.9-71z"/><path fill="#ea4335" d="M272 107.7c40.7-.6 79.5 14.8 109.5 42.8l81.8-81.8C398.3 24 337.3 0 272 0 166.1 0 70.5 62.1 23.8 154.4l91.9 71C137.7 156.8 199.3 107.7 272 107.7z"/></svg>
+            Google Play
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap" style="padding-top:0">
+    <div class="footer">
+      <div class="row">
+        <small>© 2026 Antara. Calm science, real life.</small>
+        <div style="display:flex;gap:14px;flex-wrap:wrap">
+          <a href="../terms/">Terms</a>
+          <a href="../privacy/">Privacy</a>
+          <a href="../support/">Support</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/site.js"></script>
+  <script>
+    // Particles
+    (function () {
+      var container = document.getElementById('vParticles');
+      if (!container) return;
+      var colors = ['rgba(188,120,255,.55)', 'rgba(106,225,224,.50)', 'rgba(255,198,92,.45)'];
+      function spawn() {
+        var p = document.createElement('div');
+        p.className = 'v-particle';
+        var size = 3 + Math.random() * 5;
+        var color = colors[Math.floor(Math.random() * colors.length)];
+        p.style.cssText = 'width:' + size + 'px;height:' + size + 'px;left:' + (Math.random() * 100) + '%;bottom:-' + size + 'px;background:radial-gradient(circle,' + color + ',transparent 70%);animation-duration:' + (7 + Math.random() * 10) + 's;animation-delay:' + (Math.random() * 4) + 's';
+        container.appendChild(p);
+        setTimeout(function () { p.remove(); }, 18000);
+      }
+      for (var i = 0; i < 14; i++) spawn();
+      setInterval(spawn, 1800);
+    })();
+
+    // Desktop awareness
+    (function () {
+      var isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+      if (!isMobile) {
+        var btn = document.getElementById('openAppBtn');
+        var note = document.getElementById('desktopNote');
+        if (btn) { btn.style.opacity = '.45'; btn.style.pointerEvents = 'none'; }
+        if (note) { note.style.display = 'block'; }
+      }
+    })();
+  </script>
+</body>
+</html>
