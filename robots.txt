@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /verified/
+
+Sitemap: https://www.antara.icu/sitemap.xml
