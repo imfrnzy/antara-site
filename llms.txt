@@ -1,15 +1,16 @@
 # Antara
 
-> Antara is an AI wellbeing companion for iOS and Android. She remembers you across four modules (Talk, Reflect, Heal, Elevate), can talk face to face with a live digital face, and keeps a plain-words memory you can read and delete. Antara is an AI, not a clinician or a crisis service.
+> Antara Wellness is a wellbeing companion for iOS and Android, a product of Antara Innovations. She remembers you across four modules (Talk, Reflect, Heal, Elevate), can talk face to face with a live digital face, and keeps a plain-words memory you can read and delete. She is not a clinician or a crisis service.
 
 ## Key pages
 - [Home](https://www.antara.icu/): what Antara is and how it works
 - [How it works](https://www.antara.icu/product/): the Antara loop and how the modules share one memory
+- [For clinics and organisations](https://www.antara.icu/partners/): pilots with clinics, workplaces, universities and public programmes
 - [Pricing](https://www.antara.icu/pricing/): seven days free, then Antara+ via App Store or Google Play
 - [Privacy](https://www.antara.icu/privacy/)
 - [Support](https://www.antara.icu/support/)
 
 ## Facts
 - Apps: App Store (id6755032385) and Google Play (com.antara.health)
-- Made by Antara Innovations
+- Made by Antara Innovations: https://www.antara-innovations.com/
 - Not a medical service. In an emergency, contact local emergency services.

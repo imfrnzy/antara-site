@@ -360,3 +360,27 @@ footer{border-top:1px solid var(--line);padding:56px 0 44px;background:rgba(4,5,
 
 main{overflow-x:clip}
 html{overflow-x:clip}
+
+.orgband{display:grid;grid-template-columns:1.2fr .8fr;gap:44px;align-items:center;padding:52px;border-radius:32px;border:1px solid var(--line);background:linear-gradient(150deg,rgba(242,200,121,.09),rgba(141,120,255,.12))}
+.orglist{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.orglist li{padding:16px 18px;border-radius:16px;background:var(--panel);border:1px solid var(--line)}
+.orglist b{display:block;font-weight:600}
+.orglist span{font-size:14.5px;color:var(--muted)}
+.routeBox{margin-top:44px;display:grid;grid-template-columns:1fr 1fr;gap:28px;padding:34px;border-radius:30px;border:1px solid var(--line);background:var(--panel)}
+.routeBtns{display:grid;gap:10px;align-content:start}
+.routeBtns button{text-align:left;padding:16px 20px;border-radius:16px;border:1px solid var(--line);background:transparent;color:var(--muted);font-family:var(--sans);font-size:16px;cursor:pointer;transition:.25s}
+.routeBtns button:hover{color:var(--text)}
+.routeBtns button[aria-pressed=true]{background:var(--panel2);color:var(--text);border-color:rgba(242,200,121,.55)}
+.routeOut{padding:10px 6px}
+.routeMail{font-family:var(--serif);font-size:clamp(22px,3vw,32px);color:var(--gold);word-break:break-all;margin:0}
+.dirTitle{font-family:var(--sans);font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);font-weight:600;margin:46px 0 14px}
+.dir{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.dcard{position:relative;padding:24px;border-radius:20px;border:1px solid var(--line);background:var(--panel);display:flex;flex-direction:column;gap:6px;transition:.35s var(--ease)}
+.dcard:hover{border-color:rgba(242,200,121,.4);transform:translateY(-3px)}
+.dcard b{font-family:var(--serif);font-weight:400;font-size:21px}
+.dcard span{color:var(--muted);font-size:15px;flex:1}
+.dcard a{color:var(--gold);text-decoration:none;font-size:15px;margin-top:10px;word-break:break-all}
+.dcard a:hover{text-decoration:underline}
+.cpy{position:absolute;top:18px;right:18px;border:1px solid var(--line);background:transparent;color:var(--faint);font-size:12px;padding:5px 11px;border-radius:99px;cursor:pointer;font-family:var(--sans)}
+.cpy:hover{color:var(--text)}
+@media (max-width:980px){.orgband,.routeBox{grid-template-columns:1fr;padding:26px}.dir{grid-template-columns:1fr}}

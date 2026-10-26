@@ -165,6 +165,23 @@
   if(modal){$('.x',modal).addEventListener('click',closeFilm);modal.addEventListener('click',function(e){if(e.target===modal)closeFilm()});
     addEventListener('keydown',function(e){if(e.key==='Escape'&&modal.classList.contains('on'))closeFilm()})}
 
+  /* ---------- partners router ---------- */
+  var rt=$('[data-route]');
+  if(rt){
+    var DOM='antara-innovations.com',bt=$$('[data-to]',rt),mm=$('[data-mail]',rt),go=$('[data-go]',rt);
+    var setR=function(b){
+      bt.forEach(function(x){x.setAttribute('aria-pressed',x===b)});
+      var a=b.dataset.to+'@'+DOM;mm.textContent=a;
+      var body='Hello,\n\nI am writing as '+b.dataset.lbl+'.\n\nOrganisation:\nWho it is for and roughly how many people:\nWhen you would like to start:\nAnything else:\n\nThank you,\n';
+      go.href='mailto:'+a+'?subject='+encodeURIComponent(b.dataset.subj)+'&body='+encodeURIComponent(body);
+    };
+    bt.forEach(function(b){b.addEventListener('click',function(){setR(b)})});setR(bt[0]);
+  }
+  $$('[data-copy]').forEach(function(b){b.addEventListener('click',function(){
+    var t=b.dataset.copy;var done=function(){var o=b.textContent;b.textContent='Copied';setTimeout(function(){b.textContent=o},1400)};
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,function(){})}else{done()}
+  })});
+
   /* ---------- year ---------- */
   $$('[data-year]').forEach(function(y){y.textContent=new Date().getFullYear()});
 })();
