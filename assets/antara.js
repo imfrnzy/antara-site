@@ -185,3 +185,16 @@
   /* ---------- year ---------- */
   $$('[data-year]').forEach(function(y){y.textContent=new Date().getFullYear()});
 })();
+
+/* ---------- back to Antara Innovations ribbon ---------- */
+(function(){
+  var skip=/^\/(privacy|terms|delete|support|verified)(\/|$)/;
+  if(skip.test(location.pathname)||document.getElementById('aiBack'))return;
+  var a=document.createElement('a');
+  a.id='aiBack';a.href='https://www.antara-innovations.com/wellness/';
+  a.setAttribute('aria-label','Back to Antara Innovations');
+  a.innerHTML='<span aria-hidden="true">&larr;</span> Antara Innovations';
+  document.body.appendChild(a);
+  function chk(){if((window.pageYOffset||document.documentElement.scrollTop)>240){a.classList.add('on');window.removeEventListener('scroll',chk)}}
+  window.addEventListener('scroll',chk,{passive:true});chk();
+})();
