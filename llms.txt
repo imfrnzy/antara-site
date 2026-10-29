@@ -6,7 +6,6 @@
 - [Home](https://www.antara.icu/): what Antara is and how it works
 - [How it works](https://www.antara.icu/product/): the Antara loop and how the modules share one memory
 - [For clinics and organisations](https://www.antara.icu/partners/): pilots with clinics, workplaces, universities and public programmes
-- [Pricing](https://www.antara.icu/pricing/): seven days free, then Antara+ via App Store or Google Play
 - [Privacy](https://www.antara.icu/privacy/)
 - [Support](https://www.antara.icu/support/)
 
