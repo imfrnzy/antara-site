@@ -52,7 +52,7 @@
 </div>
 <div class="box col-6">
 <h2 id="emailopt">Option B — Request by email (if you can’t access the app)</h2>
-<p>Fill in the form below. Your mail app will open with a pre‑filled request to <a href="mailto:contact@antara.icu">contact@antara.icu</a>.</p>
+<p>Fill in the form below. Your mail app will open with a pre‑filled request to <a href="mailto:hello@antara-innovations.com">hello@antara-innovations.com</a>.</p>
 <form aria-label="Email deletion request form" id="delForm">
 <div class="row">
 <label for="email">Your Antara account email</label>
@@ -103,7 +103,7 @@
     var email=f.elements.email.value.trim(), reason=(f.elements.reason.value||'').trim();
     var body='Please delete my Antara account and personal data.\n\nAccount email: '+email+(reason?'\n\nReason: '+reason:'')+'\n\nIf I no longer have access to that email, I will explain below and include any transaction IDs.';
     var a=document.createElement('a');
-    a.href='mailto:contact@antara.icu?subject='+encodeURIComponent('Account and data deletion request')+'&body='+encodeURIComponent(body);
+    a.href='mailto:hello@antara-innovations.com?subject='+encodeURIComponent('Account and data deletion request')+'&body='+encodeURIComponent(body);
     document.body.appendChild(a); a.click(); a.remove();
   });
 })();

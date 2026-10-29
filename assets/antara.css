@@ -351,7 +351,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 44px;background:rgba(4,5,
 }
 
 .stats{padding:0 0 10px}
-.statrow{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;padding:56px 0 0}
+.statrow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:56px 0 0}
 .stat{text-align:center;padding:10px}
 .stat b{display:block;font-family:var(--serif);font-weight:300;font-size:clamp(40px,5vw,64px);line-height:1;color:var(--gold);margin-bottom:10px}
 .stat span{font-size:14px;color:var(--muted);display:block;max-width:16ch;margin:0 auto}
