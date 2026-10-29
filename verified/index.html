@@ -3,21 +3,21 @@
 <head>
   <meta charset="utf-8" />
   <title>Antara — You're in</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="color-scheme" content="dark" />
   <meta name="description" content="Your Antara account is confirmed. Your inner space is waiting." />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&display=swap" rel="stylesheet">
   <link rel="icon" href="../favicon.ico">
-  <link rel="stylesheet" href="../assets/site.css" />
+  <link rel="stylesheet" href="../assets/antara.css" />
   <style>
     .v-shell {
       position: relative;
-      min-height: calc(100vh - 65px);
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 48px 20px 80px;
+      padding: 120px 20px 80px;
       overflow: hidden;
     }
 
@@ -247,29 +247,19 @@
   </style>
 </head>
 <body>
+<canvas id="sky" aria-hidden="true"></canvas>
 
   <div class="v-aurora"></div>
   <div class="v-particles" id="vParticles"></div>
 
-  <div class="topbar">
-    <div class="nav">
-      <a class="brand" href="../">
-        <span class="logo"><img src="../assets/antra-icon-512.png" alt="Antara" /></span>
-        <b>Antara</b>
-      </a>
-      <div class="navlinks">
-        <a data-nav href="../">Home</a>
-        <a data-nav href="../product/">Product</a>
-        <a data-nav href="../pricing/">Pricing</a>
-        <a data-nav href="../support/">Support</a>
-        <a data-nav href="../privacy/">Privacy</a>
-      </div>
-      <div class="cta">
-        <a class="btn ghost" href="../download/">Get the app</a>
-        <a class="btn primary" href="../pricing/">Start free</a>
-      </div>
-    </div>
-  </div>
+<header class="nav"><div class="in">
+  <a class="brand" href="../"><img src="../assets/antra-icon-512.png" alt="" width="34" height="34"><span>Antara</span></a>
+  <nav class="links" id="links" aria-label="Main">
+    <a href="../product/">How it works</a><a href="../screens/">Screens</a><a href="../partners/">For organisations</a><a href="../pricing/">Pricing</a><a href="../support/">Support</a>
+    <a class="btn gold" href="../download/">Get the app</a>
+  </nav>
+  <button class="burger" aria-label="Menu" aria-expanded="false" aria-controls="links"><span></span><span></span></button>
+</div></header>
 
   <div class="v-shell">
     <div class="v-card">
@@ -318,20 +308,18 @@
     </div>
   </div>
 
-  <div class="wrap" style="padding-top:0">
-    <div class="footer">
-      <div class="row">
-        <small>© 2026 Antara. Calm science, real life.</small>
-        <div style="display:flex;gap:14px;flex-wrap:wrap">
-          <a href="../terms/">Terms</a>
-          <a href="../privacy/">Privacy</a>
-          <a href="../support/">Support</a>
-        </div>
-      </div>
-    </div>
+<footer><div class="wrap">
+  <div class="foot">
+    <div><a class="brand" href="../"><img src="../assets/antra-icon-512.png" alt="" width="34" height="34"><span>Antara</span></a>
+      <p class="small" style="margin-top:14px;max-width:30ch">A voice that remembers you. Talk, Reflect, Heal, Elevate.</p>
+      <p class="small" style="margin-top:10px">A product of <a href="https://www.antara-innovations.com/" target="_blank" rel="noopener" style="color:var(--gold)">Antara Innovations</a></p></div>
+    <div><h4>Product</h4><a href="../product/">How it works</a><a href="../screens/">Screens</a><a href="../partners/">For organisations</a><a href="../pricing/">Pricing</a><a href="../download/">Download</a></div>
+    <div><h4>Help</h4><a href="../support/">Support</a><a href="../delete/">Delete my account</a><a href="mailto:hello@antara-innovations.com">Email us</a><a href="https://www.antara-innovations.com/" target="_blank" rel="noopener">Antara Innovations</a></div>
+    <div><h4>Legal</h4><a href="../privacy/">Privacy</a><a href="../terms/">Terms</a><a href="https://apps.apple.com/us/app/antara-wellness/id6755032385" target="_blank" rel="noopener">App Store</a><a href="https://play.google.com/store/apps/details?id=com.antara.health" target="_blank" rel="noopener">Google Play</a></div>
   </div>
-
-  <script src="../assets/site.js"></script>
+  <p class="disc">Antara is a wellbeing companion, not a medical service, and does not replace professional care. If you are in danger or in crisis, contact your local emergency number or a crisis line. &copy; <span data-year>2026</span> Antara Innovations. Antara Wellness is a product of Antara Innovations.</p>
+</div></footer>
+  <script src="../assets/antara.js" defer></script>
   <script>
     // Particles
     (function () {
