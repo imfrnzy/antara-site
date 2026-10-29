@@ -41,7 +41,7 @@
 <div class="headline">Account &amp; Data Deletion</div>
 <p class="lead">You can delete your Antara account and personal data at any time. This page explains the two supported ways to do it — <strong>in‑app</strong> or by <strong>email request</strong> — so you can still act even if you’ve uninstalled the app.</p>
 <section aria-labelledby="inapp" class="section grid">
-<div class="box">
+<div class="box col-6">
 <h2 id="inapp">Option A — Delete in the app (recommended)</h2>
 <ol>
 <li>Open <span class="kbd">Antara</span> on your phone.</li>
@@ -50,8 +50,8 @@
 </ol>
 <p class="note">This immediately schedules your account for deletion. Most data is removed promptly; certain encrypted backups may persist for a short period to support secure recovery and legal compliance.</p>
 </div>
-<div class="box">
-<h2 id="email">Option B — Request by email (if you can’t access the app)</h2>
+<div class="box col-6">
+<h2 id="emailopt">Option B — Request by email (if you can’t access the app)</h2>
 <p>Fill in the form below. Your mail app will open with a pre‑filled request to <a href="mailto:contact@antara.icu">contact@antara.icu</a>.</p>
 <form aria-label="Email deletion request form" id="delForm">
 <div class="row">
@@ -94,5 +94,19 @@
   </div>
 
   <script src="../assets/site.js"></script>
+  <script>
+(function(){
+  var f=document.getElementById('delForm'); if(!f) return;
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    if(!f.checkValidity()){f.reportValidity();return;}
+    var email=f.elements.email.value.trim(), reason=(f.elements.reason.value||'').trim();
+    var body='Please delete my Antara account and personal data.\n\nAccount email: '+email+(reason?'\n\nReason: '+reason:'')+'\n\nIf I no longer have access to that email, I will explain below and include any transaction IDs.';
+    var a=document.createElement('a');
+    a.href='mailto:contact@antara.icu?subject='+encodeURIComponent('Account and data deletion request')+'&body='+encodeURIComponent(body);
+    document.body.appendChild(a); a.click(); a.remove();
+  });
+})();
+</script>
 </body>
 </html>
