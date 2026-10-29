@@ -25,10 +25,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="assets/antara.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"MobileApplication","name":"Antara Wellness","operatingSystem":"iOS, Android","applicationCategory":"HealthApplication","description":"A wellbeing companion that remembers you. Talk, Reflect, Heal and Elevate in one app.","url":"https://www.antara.icu/","installUrl":"https://apps.apple.com/us/app/antara-wellness/id6755032385","publisher":{"@type":"Organization","name":"Antara Innovations","url":"https://www.antara-innovations.com/"},"author":{"@type":"Organization","name":"Antara Innovations","url":"https://www.antara-innovations.com/"}}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is Antara therapy?", "acceptedAnswer": {"@type": "Answer", "text": "No. Antara is a wellbeing companion. It can help you slow down, name what you feel and build small habits, but it is not a medical service, it does not diagnose, and it does not replace a therapist or doctor."}}, {"@type": "Question", "name": "Is she a real person?", "acceptedAnswer": {"@type": "Answer", "text": "No. Antara is a digital companion. Her face and voice are generated, made to make talking feel easier."}}, {"@type": "Question", "name": "What does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "Seven days free, then an Antara+ subscription, monthly or yearly, billed through the App Store or Google Play. You see the exact price in the store before you commit."}}, {"@type": "Question", "name": "Who can see what I tell her?", "acceptedAnswer": {"@type": "Answer", "text": "Your conversations are tied to your account and are not shown to anyone else. You can read everything she remembers and delete any of it."}}]}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Antara Innovations", "url": "https://www.antara-innovations.com/", "brand": {"@type": "Brand", "name": "Antara Wellness", "url": "https://www.antara.icu/"}, "contactPoint": [{"@type": "ContactPoint", "contactType": "customer support", "email": "support@antara-innovations.com"}, {"@type": "ContactPoint", "contactType": "partnerships", "email": "partnerships@antara-innovations.com"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Antara Innovations", "url": "https://www.antara-innovations.com/", "brand": {"@type": "Brand", "name": "Antara Wellness", "url": "https://www.antara.icu/"}, "contactPoint": [{"@type": "ContactPoint", "contactType": "customer support", "email": "hello@antara-innovations.com"}]}</script>
+<script>try{if(!sessionStorage.getItem("antaraWelcome")&&!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("wl")}catch(e){}</script>
 </head>
 <body>
+<div class="welcome" aria-hidden="true"><div class="motif"></div><div class="rings"><i></i><i></i><i></i></div><img src="assets/antra-icon-512.png" alt="" width="112" height="112"><p>Come in.<span>Take a breath.</span></p><small>Tap to go in</small></div>
 <canvas id="sky" aria-hidden="true"></canvas><div class="aurora" aria-hidden="true"></div>
 <header class="nav"><div class="in">
   <a class="brand" href="./"><img src="assets/antra-icon-512.png" alt="" width="34" height="34"><span>Antara</span></a>
@@ -73,12 +74,12 @@
   <span>Talk</span><span>Reflect</span><span>Heal</span><span>Elevate</span><span>Breathe</span><span>Your inner sky</span><span>Your safety plan</span><span>She remembers</span>
 </div></div>
 
-<div class="stats"><div class="wrap"><div class="statrow">
-  <div class="stat rv"><b>4</b><span>doors, one memory</span></div>
-  <div class="stat rv d1"><b>8</b><span>coaches for growth</span></div>
-  <div class="stat rv d2"><b>6</b><span>guided breathing patterns</span></div>
-  <div class="stat rv d3"><b>180+</b><span>countries with helplines built in</span></div>
-</div></div></div>
+
+<section id="why"><div class="wrap" style="text-align:center">
+ <p class="eyebrow rv">Why Antara</p>
+ <h2 class="rv d1" style="max-width:20ch;margin:0 auto">So much noise. <em>Where did your own voice go?</em></h2>
+ <p class="lead rv d2" style="max-width:56ch;margin:22px auto 0">Everyone has an opinion on how you should feel, what you should want and who you should be. Antara slows all of that down, so you can hear yourself again.</p>
+</div></section>
 
 <section id="doors"><div class="wrap">
  <div class="split">
@@ -99,7 +100,7 @@
    </div>
    <div class="doorPanel" data-panel="reflect" role="tabpanel">
      <h3>Slow the spiral. Listen inward.</h3>
-     <p class="muted">Reflect is for the loop that will not switch off. She listens, then asks the one question that opens it up. It is closer to a good conversation with someone who pays attention than to a chatbot reply.</p>
+     <p class="muted">Reflect is for the loop that will not switch off. She listens, then asks the one question that opens it up. It is closer to a good conversation with someone who pays attention.</p>
      <div class="quote">&ldquo;Your body staying on guard all the time sounds exhausting. As we begin today, I'm curious. What does your body feel like right now?&rdquo;<small>An example opening, from a sample account.</small></div>
    </div>
    <div class="doorPanel" data-panel="heal" role="tabpanel">
@@ -110,6 +111,7 @@
      <h3>Turn what you want into a plan.</h3>
      <p class="muted">Pick an area of life, and a coach who remembers your Thursday meeting builds a 90 day vision you can actually believe in. Then one clear step at a time.</p>
    </div>
+  <p class="rv d3"><a class="more" href="product/">How it works</a></p>
   </div>
   <div class="doorShots rv d2">
     <div class="phone on" data-shot="talk"><img src="assets/img/talk.webp" width="623" height="1260" alt="Talk screen: tap the circle and talk" loading="lazy"></div>
@@ -120,220 +122,38 @@
  </div>
 </div></section>
 
-<section id="face"><div class="wrap">
- <div class="split flip">
-  <div class="copy">
-   <p class="eyebrow rv">The live face</p>
-   <h2 class="rv d1">Then she looks at you. <em>And talks.</em></h2>
-   <p class="lead rv d2">A live face on the call. She speaks, you answer, she listens. Face to face, at 2am, with no appointment.</p>
-   <div class="stateList rv d2">
-     <div><b>Listening</b><span>She waits. No rush.</span></div>
-     <div><b>Thinking</b><span>She takes a breath.</span></div>
-     <div><b>Speaking</b><span>Warm voice, live face.</span></div>
-   </div>
-   <p class="notice rv d3">She is a digital companion. Her face and voice are generated, to make talking easier and not to make you think she is a person. Real recording from the app.</p>
-  </div>
-  <div class="faceBig rv d2">
-   <div class="faceFrame">
-    <video src="assets/vid/face.mp4" poster="assets/img/face-poster.webp" muted loop playsinline preload="none" data-lazyplay aria-label="Antara speaking, live face"></video></div>
-  </div>
- </div>
-</div></section>
-
-<section id="noticing"><div class="wrap">
- <div class="split">
-  <div class="phoneWrap rv"><div class="phone"><img src="assets/img/chat.webp" width="720" height="1500" alt="Chat where Antara notices the gap between 'it went fine' and 'I cannot stop replaying it'" loading="lazy"></div></div>
-  <div class="copy">
-   <p class="eyebrow rv">What makes her different</p>
-   <h2 class="rv d1">You said, &ldquo;it went fine.&rdquo; <em>She heard, &ldquo;I can't stop replaying it.&rdquo;</em></h2>
-   <p class="lead rv d2">Most chatbots answer the sentence. Antara answers the person. She asks questions that notice the gap between what you say and what you feel.</p>
-   <ul class="ticks rv d3">
-     <li><span><b>She reads how you write, not only what.</b> Message length, how formal you are, which languages you mix (Hinglish too), the hour you usually turn up. Stored as small averages, never your words.</span></li>
-     <li><span><b>She holds patterns loosely.</b> One mention is a hunch. She waits for it to come back before she says anything, and she always says it as something she noticed, not a fact about you.</span></li>
-     <li><span><b>Her tone follows yours.</b> Casual with casual, careful with careful. She is built to sound like she belongs in your world.</span></li>
-   </ul>
-  </div>
- </div>
-</div></section>
-
-<section id="memory"><div class="wrap">
- <div class="split flip">
-  <div class="copy">
-   <p class="eyebrow rv">Memory you can read</p>
-   <h2 class="rv d1">She remembers your dad, your manager, <em>the meeting you dreaded.</em></h2>
-   <p class="lead rv d2">Everything she knows is written in plain words, in one screen called &ldquo;What I know about you&rdquo;. Tap Forget and it is gone.</p>
-   <ul class="ticks rv d3">
-     <li><span><b>Readable.</b> No hidden profile. If she knows it, you can read it.</span></li>
-     <li><span><b>Deletable, line by line.</b> You decide what stays.</span></li>
-     <li><span><b>One memory behind every door.</b> Talk, Reflect, Heal and Elevate all draw on the same one.</span></li>
-   </ul>
-  </div>
-  <div class="phoneWrap rv d2"><div class="phone"><img src="assets/img/memory.webp" width="623" height="1260" alt="The 'What I know about you' screen with a Forget button on every line" loading="lazy"></div></div>
- </div>
-</div></section>
-
-<section id="body"><div class="wrap">
- <div class="split">
-  <div class="phoneWrap rv"><div class="phone"><img src="assets/img/body.webp" width="623" height="1260" alt="Embodied Healing body map" loading="lazy"></div></div>
-  <div class="copy">
-   <p class="eyebrow rv">Heal</p>
-   <h2 class="rv d1">Your body has been trying <em>to tell you something.</em></h2>
-   <p class="lead rv d2">Tap where it hurts. Antara listens to what that spot has been holding.</p>
-   <p class="muted rv d3">Stress often arrives as a tight chest, a clenched jaw, a stomach that will not settle. The body map lets you start there, with no need to find the right words first. She then helps you map when it flares, try a short practice, and rebuild a sense of safety at your pace. It is not a diagnosis, and it never claims to be.</p>
-  </div>
- </div>
-</div></section>
-
-<section id="innersky"><div class="wrap">
- <p class="eyebrow rv">Your inner sky</p>
- <h2 class="rv d1" style="max-width:16ch">See what I have <em>noticed.</em></h2>
- <p class="lead rv d2" style="margin-top:20px">Your inner sky draws what she has picked up, as stars. Things she noticed, never facts about you.</p>
- <div class="skyBox rv d2" data-skydemo>
-  <div class="skyHead">
-   <span class="small">Example sky. Try the rule that keeps it honest:</span>
-   <div class="seg" role="group" aria-label="How many talks">
-     <button type="button" data-talks="1" aria-pressed="false">After one talk</button>
-     <button type="button" data-talks="2" aria-pressed="true">After two talks</button>
-     <button type="button" data-talks="3" aria-pressed="false">After three</button>
-   </div>
-  </div>
-  <div class="skyGrid">
-   <div class="skyCol"><h4>Your body</h4><div class="starList" data-col="body"></div></div>
-   <div class="skyCol"><h4>Your life</h4><div class="starList" data-col="life"></div></div>
-   <div class="skyCol"><h4>Patterns</h4><div class="starList" data-col="patterns"></div></div>
-  </div>
-  <div class="skyNote" data-skynote aria-live="polite"></div>
- </div>
- <ul class="ticks rv" style="max-width:760px">
-   <li><span><b>Faint and dotted after one mention. Firm after two.</b> She does not build a story off a single sentence.</span></li>
-   <li><span><b>Heavy topics wait.</b> Grief and the like only appear after two separate talks.</span></li>
-   <li><span><b>No fake milestones.</b> An empty sky shows soft ghost stars that say what would light them, never a blank screen.</span></li>
-   <li><span><b>You answer, not her.</b> A small question comes days later: is it lighter, the same, or heavier? Only your tap counts. Silence is never marked as resolved.</span></li>
- </ul>
-</div></section>
-
-<section id="listens"><div class="wrap">
- <div class="split flip">
-  <div class="copy">
-   <p class="eyebrow rv">Beyond words</p>
-   <h2 class="rv d1">She listens <em>beyond your words.</em></h2>
-   <p class="lead rv d2">Voice, face and heart rate, only if you allow it. Switch any of it off whenever you like.</p>
-   <div class="toggleRows rv d3">
-     <div class="trow"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.600A4 4 0 0 1 19 10c0 5.600-7 10-7 10z"/></svg></div><div><b>Heart rate</b><span>For a sense of how you are really doing.</span></div><button class="sw" role="switch" aria-checked="true" aria-label="Heart rate"></button></div>
-     <div class="trow"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-2h6l2 2h3v11H4z"/><circle cx="12" cy="13" r="3.500"/></svg></div><div><b>Camera</b><span>To notice what is in your expression. Read on your phone. The video never leaves it.</span></div><button class="sw" role="switch" aria-checked="true" aria-label="Camera"></button></div>
-     <div class="trow"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></div><div><b>Voice</b><span>So you can just talk, not type.</span></div><button class="sw" role="switch" aria-checked="true" aria-label="Voice"></button></div>
-   </div>
-   <p class="small" style="margin-top:18px">Signals are one light input. She holds them as a hunch and checks with you, she never announces what your face &ldquo;means&rdquo;. The conversation is the product.</p>
-  </div>
-  <div class="phoneWrap rv d2"><div class="phone"><img src="assets/img/tune.webp" width="720" height="1500" alt="Let's tune in properly: choose heart rate, camera and voice, all optional" loading="lazy"></div></div>
- </div>
-</div></section>
-
-<section id="elevate"><div class="wrap">
- <p class="eyebrow rv">Elevate</p>
- <h2 class="rv d1" style="max-width:18ch">Eight kinds of growth. <em>Eight different coaches.</em></h2>
- <p class="lead rv d2" style="margin-top:20px">A relationship coach does not sound like a health coach. Pick an area and the coach changes to fit it, with a 90 day vision you actually believe, then one clear step at a time.</p>
- <div class="coaches">
-  <div class="coach rv"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5h6v2M3 13h18"/></svg></div><h3>Work</h3><p>Be seen, speak up, move up.</p></div>
-  <div class="coach rv d1"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.600A4 4 0 0 1 19 10c0 5.600-7 10-7 10z"/></svg></div><h3>Health</h3><p>Energy and habits that stick.</p></div>
-  <div class="coach rv d2"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.700 3 3 7 3s7-1.300 7-3V6M5 12v6c0 1.700 3 3 7 3s7-1.300 7-3v-6"/></svg></div><h3>Wealth</h3><p>A money plan you can follow.</p></div>
-  <div class="coach rv d3"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.200"/><path d="M3 20c0-3.500 2.500-6 6-6s6 2.500 6 6M15 14.500c3 0 6 1.500 6 5"/></svg></div><h3>Relationships</h3><p>Say the hard thing, kindly.</p></div>
-  <div class="coach rv"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4M8 5l2 3M16 5l-2 3M5 21c-1-4 0-8 3-9 3-1 4 1 4 3s-2 3-4 2M12 15c1-3 4-4 6-3s2 4 0 6-5 1-6 3"/></svg></div><h3>Spirituality</h3><p>A daily practice that is yours.</p></div>
-  <div class="coach rv d1"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2.200"/><path d="M12 8v6M7 10l5 2 5-2M9 21l3-7 3 7"/></svg></div><h3>Parenting</h3><p>Calmer bedtimes, steadier days.</p></div>
-  <div class="coach rv d2"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c0 1.500 3 3 6 3s6-1.500 6-3v-5"/></svg></div><h3>New skill</h3><p>Learn, on your hours.</p></div>
-  <div class="coach rv d3"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4a3 3 0 0 0-3 3 3 3 0 0 0-2 5 3 3 0 0 0 2 5 3 3 0 0 0 5 2V4a3 3 0 0 0-2 0zM15 4a3 3 0 0 1 3 3 3 3 0 0 1 2 5 3 3 0 0 1-2 5 3 3 0 0 1-5 2V4a3 3 0 0 1 2 0z"/></svg></div><h3>Self awareness</h3><p>See the pattern you repeat.</p></div>
- </div>
- <div class="wide rv" style="max-width:780px;margin:44px auto 0"><img src="assets/img/elevate.webp" width="1207" height="1117" alt="Elevate: a coach asks if a 90 day plan matches what you want, then builds the first step" loading="lazy"></div>
- <p class="small rv" style="text-align:center;margin-top:12px">Elevate, from a sample account. &ldquo;Does that match what you want?&rdquo; comes before any plan.</p>
-</div></section>
-
-<section id="breathe"><div class="wrap">
- <p class="eyebrow rv">Breathe</p>
- <h2 class="rv d1">And when words are too much, <em>breathe.</em></h2>
- <p class="lead rv d2" style="margin-top:20px">Six guided breathing patterns, with pacing and voice guidance. Try one here. It is the same timing as in the app.</p>
- <div class="breathBox rv d2">
-  <div class="orbWrap"><div class="ringO r2"></div><div class="ringO"></div><div class="orb" data-orb></div>
-    <div class="orbLabel"><b data-orblabel>Breathe in</b><span data-orbsub></span></div></div>
-  <div class="pinfo">
-    <p class="small" style="margin:0 0 6px" data-pwhen></p>
-    <h3 data-ptitle style="font-size:34px"></h3>
-    <p class="pat" data-ppat></p>
-    <p class="muted" data-pdesc></p>
-    <div class="pchips" data-pchips role="group" aria-label="Breathing patterns"></div>
-    <p class="small">Breathwork is a calming tool, not a treatment. Stop if you feel dizzy.</p>
-  </div>
- </div>
-</div></section>
-
-<section id="playbox"><div class="wrap">
- <p class="eyebrow rv">Playbox</p>
- <h2 class="rv d1" style="max-width:18ch">Five short ways to <em>know yourself</em> a bit better.</h2>
- <p class="lead rv d2" style="margin-top:20px">Short reflections shaped by what psychologists measure. Take one when you are curious. Nothing here is a diagnosis, and every screen says so. Four of the five keep your answers on your phone.</p>
- <div class="pbList">
-  <div class="pb rv" style="--c:#8d78ff"><h3>Closeness</h3><p>How you lean towards people, and how you pull away.</p></div>
-  <div class="pb rv d1" style="--c:#f2c879"><h3>Words for Feelings</h3><p>How easily you can name what is going on inside you.</p></div>
-  <div class="pb rv d2" style="--c:#7fe3df"><h3>Five Threads</h3><p>The five patterns that run through most of what you do.</p></div>
-  <div class="pb rv d3" style="--c:#ff8fb3"><h3>How You're Wired</h3><p>The way you take in the world, and where it costs you.</p></div>
-  <div class="pb rv" style="--c:#c9b8ff"><h3>Inner Threads</h3><p>The five deeper threads that tend to run underneath.</p></div>
- </div>
-</div></section>
-
-<section id="safety" class="safety"><div class="wrap">
- <div class="split">
-  <div class="copy">
-   <p class="eyebrow rv">For the hard nights</p>
-   <h2 class="rv d1">A plan <em>in your own words.</em></h2>
-   <p class="lead rv d2">Built together while you are calm. Brought back when it is dark. Seven short steps. Skip any. Change or delete it whenever you like.</p>
-   <ol class="planList rv d3">
-     <li><span><b>My warning signs.</b> How I know it is getting dark.</span></li>
-     <li><span><b>What I can do on my own.</b></span></li>
-     <li><span><b>People and places</b> that take my mind off it.</span></li>
-     <li><span><b>People I can ask for help.</b></span></li>
-     <li><span><b>My own doctor or professional.</b> Helplines for your country are added for you.</span></li>
-     <li><span><b>One thing to make my space safer.</b> She never asks for methods.</span></li>
-     <li><span><b>What keeps me going.</b></span></li>
-   </ol>
-  </div>
-  <div class="phoneWrap rv d2"><div class="phone"><img src="assets/img/safety.webp" width="713" height="1095" alt="Our safety plan screen" loading="lazy"></div></div>
- </div>
- <div class="rules">
-   <div class="rule rv"><span class="x">Two checks, not one</span><h3>If the first check fails, a plain one catches it</h3><p>An automatic safety check reads every conversation. Under it sits a plain word check, because automatic checks can fail. A clear statement of wanting to die is never treated as ordinary.</p></div>
-   <div class="rule rv d1"><span class="x">Her rule</span><h3>Helplines for your country</h3><p>Real lines and emergency numbers, matched to where you are, for more than 180 countries and regions.</p></div>
-   <div class="rule rv d2"><span class="x">Her rule</span><h3>Never selling in a crisis</h3><p>No upgrade prompts during a hard moment. Support is never locked behind points, a plan or a streak.</p></div>
- </div>
-</div></section>
-
-<section id="habits"><div class="wrap">
- <p class="eyebrow rv">Small, kind habits</p>
- <h2 class="rv d1" style="max-width:18ch">Built to be <em>kind</em>, not to keep you hooked.</h2>
- <p class="lead rv d2" style="margin-top:20px">Most apps reward you for staying. Antara is written to leave you alone when you need that. These are real rules in the code.</p>
+<section id="features"><div class="wrap">
+ <p class="eyebrow rv">What she does</p>
+ <h2 class="rv d1" style="max-width:20ch">She notices. <em>She remembers.</em> You stay in charge.</h2>
  <div class="habits">
-  <div class="card rv"><span class="n">Morning and evening</span><h3>Two notes a day, at your own time</h3><p>She learns when you are usually around. A warm start in the morning. In the evening, one gentle thought from the day. If you did not talk, a kind &ldquo;we did not connect today, sleep well&rdquo;. Never a guilt trip.</p></div>
-  <div class="card rv d1"><span class="n">Lock screen safe</span><h3>Notes carry your name, never your feelings</h3><p>Other people see your lock screen. Notes can include your first name and plans. They never carry health, feelings, relationships or grief, and that is enforced in code, not left to the AI.</p></div>
-  <div class="card rv d2"><span class="n">Stardust</span><h3>Points for showing up, never for talking more</h3><p>Small, cheap actions earn a little stardust, with a daily cap. It never expires and a missed day never takes any away. Spend it on time to talk.</p></div>
-  <div class="card rv"><span class="n">Gentle check-ins</span><h3>A small question, days later</h3><p>&ldquo;Your chest came up a few days ago. How does it feel today?&rdquo; One tap. Never about heavy topics, never in the week after a hard moment, at most one a day, and you can switch them off.</p></div>
-  <div class="card rv d1"><span class="n">&ldquo;Not now&rdquo; means not now</span><h3>She backs off when you ask</h3><p>Say not now and that topic rests for three days. Say it twice and it rests for a month. Three unanswered asks in a row and everything pauses for two weeks.</p></div>
-  <div class="card rv d2"><span class="n">Your journey</span><h3>Your words, counted. Not a score.</h3><p>Lighter, about the same, or heavier. That is all it records, in your taps. No percentages, no &ldquo;you are 62 per cent healed&rdquo;.</p></div>
+  <div class="card rv"><span class="n">Memory you can read</span><h3>Everything she knows, in plain words</h3><p>One screen called &ldquo;What I know about you&rdquo;. Read every line. Tap Forget and it is gone. One memory sits behind every door.</p><a class="more" href="product/#memory">How memory works</a></div>
+  <div class="card rv d1"><span class="n">Your inner sky</span><h3>Stars for what she has noticed</h3><p>Things she picked up, drawn as stars. Never facts about you. Faint after one mention, firm after two.</p><a class="more" href="screens/#innersky">Try your sky</a></div>
+  <div class="card rv d2"><span class="n">For the hard nights</span><h3>A plan in your own words</h3><p>Built together while you are calm, brought back when it is dark. Helplines for your country are added for you.</p><a class="more" href="product/#safety">How it keeps you safe</a></div>
+ </div>
+ <div class="orgband rv" style="margin-top:44px">
+  <div>
+   <p class="eyebrow">Try it</p>
+   <h2 style="font-size:clamp(30px,3.6vw,46px)">Start with one <em>slow breath.</em></h2>
+   <p class="lead" style="margin-top:14px">Six breathing patterns, a short reflection, your own sky of stars. Same timing as in the app.</p>
+   <div class="row" style="margin-top:24px"><a class="btn gold lg" href="screens/#breathe">Try it</a><a class="btn lg" href="screens/">See the screens</a></div>
+  </div>
+  <ul class="orglist"><li><b>Breathe</b><span>Six guided patterns</span></li><li><b>Playbox</b><span>A short reflection</span></li><li><b>Your inner sky</b><span>Tap a star, see why</span></li></ul>
  </div>
 </div></section>
 
 <section id="privacy"><div class="wrap">
- <p class="eyebrow rv">Trust</p>
- <h2 class="rv d1" style="max-width:18ch">Privacy you can <em>actually check.</em></h2>
- <div class="privGrid">
-  <div class="priv rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-2h6l2 2h3v11H4z"/><circle cx="12" cy="13" r="3.500"/></svg><div><h3>Your camera stays on your phone</h3><p>Facial expressions are read on the device. The video never leaves it. Only a simple label, like &ldquo;tense&rdquo;, can become data, and only if you allow the camera.</p></div></div>
-  <div class="priv rv d1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><div><h3>Style, not words</h3><p>The way she learns how you write stores measurements, like average length and time of day. It does not store what you said.</p></div></div>
-  <div class="priv rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg><div><h3>Delete what she knows, or everything</h3><p>Forget single lines in &ldquo;What I know about you&rdquo;. Delete your whole account in the app, or from our <a href="delete/" style="color:var(--gold)">deletion page</a>.</p></div></div>
-  <div class="priv rv d1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.500h.01M7 16.500h.01"/></svg><div><h3>Honest about the AI part</h3><p>To reply, your words are sent to AI providers through our own server. The app never holds an AI key. Analytics are opt-in. The <a href="privacy/" style="color:var(--gold)">privacy policy</a> has the detail.</p></div></div>
- </div>
-</div></section>
-
-<section id="builder"><div class="wrap">
- <div class="prose" style="max-width:820px;margin:0 auto;text-align:center">
-  <p class="eyebrow rv">Who is behind this</p>
-  <h2 class="rv d1" style="font-size:clamp(30px,4vw,48px)">A product of <em>Antara Innovations.</em></h2>
-  <p class="lead rv d2" style="margin:22px auto 0">Antara Wellness is built by Antara Innovations, a research-first company working on how people and technology can be good for each other. It comes from cyberpsychology and one plain belief: a companion should leave you less alone, not more hooked.</p>
-  <div class="row rv d3" style="justify-content:center;margin-top:28px"><a class="btn" href="https://www.antara-innovations.com/" target="_blank" rel="noopener">Visit Antara Innovations</a><a class="btn" href="mailto:hello@antara-innovations.com">hello@antara-innovations.com</a></div>
+ <div class="split">
+  <div class="copy">
+   <p class="eyebrow rv">Trust</p>
+   <h2 class="rv d1" style="max-width:16ch">Privacy you can <em>actually check.</em></h2>
+   <p class="lead rv d2">Your words are tied to your account and shown to no one else. She is a digital companion, not a person, and not a medical service.</p>
+   <p class="rv d3"><a class="more" href="product/#trust">How your data is handled</a> &nbsp;&middot;&nbsp; <a class="more" href="privacy/">Privacy policy</a></p>
+  </div>
+  <ul class="ticks rv d2" style="margin:0">
+   <li><span><b>Your camera stays on your phone.</b> Expressions are read on the device. The video never leaves it.</span></li>
+   <li><span><b>Style, not words.</b> She stores averages like message length and time of day, not what you said.</span></li>
+   <li><span><b>Delete one line or everything.</b> In the app, or from the <a href="delete/" style="color:var(--gold)">deletion page</a>.</span></li>
+  </ul>
  </div>
 </div></section>
 
@@ -343,7 +163,7 @@
    <p class="eyebrow">For clinics and organisations</p>
    <h2 style="font-size:clamp(32px,4vw,52px)">Bringing Antara to <em>your people?</em></h2>
    <p class="lead" style="margin-top:16px">Clinics, workplaces, universities and public programmes can run Antara as a scoped pilot alongside what they already offer. Tell us who it is for and we will take it from there.</p>
-   <div class="row" style="margin-top:26px"><a class="btn gold lg" href="partners/">Connect with us</a><a class="btn lg" href="mailto:clinics@antara-innovations.com">clinics@antara-innovations.com</a></div>
+   <div class="row" style="margin-top:26px"><a class="btn gold lg" href="partners/">For clinics and organisations</a><a class="btn lg" href="mailto:hello@antara-innovations.com">hello@antara-innovations.com</a></div>
   </div>
   <ul class="orglist">
    <li><b>Clinics and care providers</b><span>Alongside therapy, between sessions</span></li>
@@ -351,19 +171,6 @@
    <li><b>Universities and researchers</b><span>Studies and evaluation</span></li>
    <li><b>Health systems and public bodies</b><span>Cohort pilots</span></li>
   </ul>
- </div>
-</div></section>
-
-<section id="faq"><div class="wrap">
- <p class="eyebrow rv" style="text-align:center">Questions</p>
- <h2 class="rv d1" style="text-align:center">Fair things to ask.</h2>
- <div class="faq rv d2">
-  <details><summary>Is Antara therapy?</summary><p>No. Antara is a wellbeing companion. It can help you slow down, name what you feel and build small habits, but it is not a medical service, it does not diagnose, and it does not replace a therapist or doctor. If you are in therapy, Antara can sit alongside it.</p></details>
-  <details><summary>Is she a real person?</summary><p>No. Antara is a digital companion. Her face and voice are generated, made to make talking feel easier.</p></details>
-  <details><summary>What if I am in crisis?</summary><p>Antara shows helplines and emergency numbers matched to your country and moves into a calmer, steadier way of talking. She is not a crisis service. If you are in danger, call your local emergency number now.</p></details>
-  <details><summary>What does it cost?</summary><p>Seven days free, then an Antara+ subscription, monthly or yearly, billed through the App Store or Google Play. You see the exact price in the store before you commit, and you can cancel any time in your store settings. See <a href="pricing/" style="color:var(--gold)">pricing</a>.</p></details>
-  <details><summary>Who can see what I tell her?</summary><p>Your conversations are tied to your account and are not shown to anyone else. To reply, your words are processed by AI providers through our server. You can read everything she remembers and delete any of it. The <a href="privacy/" style="color:var(--gold)">privacy policy</a> has the full detail.</p></details>
-  <details><summary>Which languages?</summary><p>She follows the language you write or speak in, and picks up when you mix languages, Hinglish included.</p></details>
  </div>
 </div></section>
 
